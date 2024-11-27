@@ -16,7 +16,7 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profiles")
     role = models.CharField(max_length=1, choices=Role.choices)
     bio = models.TextField(blank=True, null=True)
-    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    avatar = models.ImageField(upload_to='avatars/', default='avatars/noavatar.png')
 
 
     def __str__(self):
