@@ -1,0 +1,61 @@
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
+from users.models import Profile
+
+from .models import Subject
+
+
+# Create your views here.
+@login_required
+def subject_list(request):
+    user_profile = Profile.objects.filter(user=request.user)
+    if user_profile.is_student():
+        subjects = Subject.objects.filter(student=request.user)
+    else:
+        subjects = Subject.objects.filter(teacher=request.user)
+    return render(
+        request,
+        'subjects/subject-list.html',
+        dict(user_profile=user_profile, subjects=subjects),
+    )
+
+
+@login_required
+def subject_detail(request):
+    pass
+
+
+@login_required
+def subject_lessons(request):
+    pass
+
+
+@login_required
+def lesson_detail(request):
+    pass
+
+
+@login_required
+def add_lesson(request):
+    pass
+
+
+@login_required
+def edit_lesson(request):
+    pass
+
+
+@login_required
+def delete_lesson(request):
+    pass
+
+
+@login_required
+def mark_list(request):
+    pass
+
+
+@login_required
+def edit_marks(request):
+    pass
