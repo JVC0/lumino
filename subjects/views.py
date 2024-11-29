@@ -1,17 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from users.models import Profile
-
 from .models import Subject
 
 
 # Create your views here.
 @login_required
 def subject_list(request):
-    user_profile = Profile.objects.filter(user=request.user)
+    user_profile = request.user.profile
     if user_profile.is_student():
-        subjects = Subject.objects.filter(student=request.user)
+        subjects = Subject.objects.filter(students=request.user)
     else:
         subjects = Subject.objects.filter(teacher=request.user)
     return render(

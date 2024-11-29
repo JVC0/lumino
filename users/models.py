@@ -16,20 +16,19 @@ class Enrollment(models.Model):
         return f'{self.student} - {self.subject}'
 
 
+
 class Profile(models.Model):
     class Role(models.TextChoices):
         STUDENT = 'S', 'Student'
         TEACHER = 'T', 'Teacher'
 
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profiles'
-    )
-    role = models.CharField(max_length=1, choices=Role, default=Role.STUDENT)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    role = models.CharField(max_length=1, choices=Role.choices, default=Role.STUDENT)
     bio = models.TextField(blank=True, null=True)
     avatar = models.ImageField(upload_to='avatars/', default='avatars/noavatar.png')
 
     def is_student(self):
-        return self.user.profile.role == Profile.Role.STUDENT
+        return self.role == Profile.Role.STUDENT
 
     def __str__(self):
-        return Profile.user
+        return f'{self.user.username} - {self.get_role_display()}'

@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+{{subjects}}
   {% for subject in subjects %}
-  <a href="{% url 'login' %}">Login</a>
-    {{ subject.name }}
+    {{ subject }}
+    
   {% endfor %}  
 {% endblock content %}
