@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from .models import Subject
+from .models import Lesson, Subject
 
 
 # Create your views here.
@@ -20,8 +20,10 @@ def subject_list(request):
 
 
 @login_required
-def subject_detail(request):
-    pass
+def subject_detail(request, code):
+    subject_code = Lesson.subject
+    lesson = Lesson.objects.get(subject=subject_code)
+    return render(request, 'subjects/subject-detail.html', dict(lesson=lesson))
 
 
 @login_required

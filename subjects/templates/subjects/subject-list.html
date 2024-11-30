@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-{{subjects}}
+
   {% for subject in subjects %}
+  <div>
+
+  
     {{ subject }}
-    
+    <a href="{% url "subjects:subject-detail" subject %}">more detail</a>
+  </div>
   {% endfor %}  
 {% endblock content %}

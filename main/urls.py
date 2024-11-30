@@ -18,11 +18,13 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import include, path
 
 import accounts.views
 
 urlpatterns = [
+    path('', lambda _: redirect('shared:homepage')),
     path('admin/', admin.site.urls),
     path('subjects/', include('subjects.urls')),
     # path('users/', include('users.urls', namespace='users')),
