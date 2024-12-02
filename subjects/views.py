@@ -21,9 +21,9 @@ def subject_list(request):
 
 @login_required
 def subject_detail(request, code):
-    subject_code = Lesson.subject
-    lesson = Lesson.objects.get(subject=subject_code)
-    return render(request, 'subjects/subject-detail.html', dict(lesson=lesson))
+    subject = Subject.objects.get(code=code)
+    subject_lessons = Lesson.objects.filter(subject_lessons=subject_lessons)
+    return render(request, 'subjects/subject-detail.html', dict(subject_lessons=subject_lessons))
 
 
 @login_required
