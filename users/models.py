@@ -81,8 +81,9 @@ def mark_list(request):
     subject = Subject.objects.get(code=code)
     if request.user.profile.is_student() or subject.teacher != request.user:
         return HttpResponseForbidden()
-    enrollments = subject.enrollments
+    enrollments = subject.enrollments.all()
     #related_name = 'enrollments' de subject
+return render(request, 'subjects/mark-list.html', dict(subject=subject, enrollments=enrollments))
 
 
 @login_required
