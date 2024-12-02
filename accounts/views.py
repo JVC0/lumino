@@ -13,28 +13,25 @@ def user_login(request):
     if request.user.is_authenticated:
         return redirect(FALLBACK_REDIRECT)
     login_error = False
+    next = request.GET.get('next')
+
     if request.method == 'POST':
-        next = request.POST.get('next')
-        form = LoginForm(request.POST)
-        username = form.data['username']
-        password = form.data['password']
-        if user := authenticate(request, username=username, password=password):
-            login(request, user)
-            return redirect(next)
-        else:
-            form = LoginForm()
-            login_error = True
+        if (form := LoginForm(request.POST)).is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            if user := authenticate(request, username=username, password=password):
+                login(request, user)
+
+                return redirect(next or FALLBACK_REDIRECT)
+            else:
+                login_error = True
+
     else:
-        next = request.GET.get('next', FALLBACK_REDIRECT)
         form = LoginForm()
     return render(
         request,
         'accounts/login.html',
-        dict(
-            form=form,
-            next=next,
-            login_error=login_error,
-        ),
+        dict(form=form, login_error=login_error, next=next),
     )
 
 
@@ -49,6 +46,7 @@ def user_signup(request):
             user = form.save()
             Profile.objects.create(user=user)
             login(request, user)
+
             return redirect('shared:homepage')
     else:
         form = SignupForm()
