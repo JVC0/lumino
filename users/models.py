@@ -34,5 +34,4 @@ class Profile(models.Model):
         return self.role == Profile.Role.STUDENT
 
     def __str__(self):
-        return Profile.user
         return f'{self.user.username} - {self.get_role_display()}'

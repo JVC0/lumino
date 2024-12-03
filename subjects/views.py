@@ -9,7 +9,7 @@ from .models import Lesson, Subject
 # Create your views here.
 @login_required
 def subject_list(request):
-    if request.user.profile.is_student:
+    if request.user.profile.is_student():
         subjects = request.user.enrolled_subjects.all()
     else:
         subjects = request.user.taught_subjects.all()
@@ -41,7 +41,7 @@ def subject_lessons(request, code):
 
 
 @login_required
-def lesson_detail(request, pk):
+def lesson_detail(request, pk, code):
     lesson = Lesson.objects.get(pk=pk)
     return render(request, 'subjects/lesson-detail.html', dict(lesson=lesson))
     # esto seguro es más complejo
