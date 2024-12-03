@@ -1,22 +1,22 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
+from .forms import AddLessonForm, EditLessonForm
 from .models import Lesson, Subject
 
 
 # Create your views here.
 @login_required
 def subject_list(request):
-    user_profile = request.user.profile
-    if user_profile.is_student():
-        subjects = Subject.objects.filter(students=request.user)
+    if request.user.profile.is_student:
+        subjects = request.user.enrolled_subjects.all()
     else:
-        subjects = Subject.objects.filter(teacher=request.user)
+        subjects = request.user.taught_subjects.all()
     return render(
         request,
         'subjects/subject-list.html',
-        dict(user_profile=user_profile, subjects=subjects),
+        dict(subjects=subjects),
     )
 
 
@@ -48,30 +48,41 @@ def lesson_detail(request, pk):
 
 
 @login_required
-def add_lesson(request):
-    # subject = Subject.objects.get(code=code)
-    # if request.user.profile.is_student() or subject.teacher != request.user:
-    #     return HttpResponseForbidden()
-    # if request.method == 'POST':
-    #     form = AddLessonForm(request.POST)
-    #     if form.is_valid():
-    #         lesson = form.save(commit=False)
-    #         lesson.subject = subject
-    #         lesson.save()
-    #         return redirect('subjects:lesson-detail', pk=lesson.pk)
-    # else:
-    #     form = AddLessonForm()
-    # return render(request, 'subjects/add-lesson.html', dict(form=form))
+def add_lesson(request, code):
+    subject = Subject.objects.get(code=code)
+    if request.user.profile.is_student() or subject.teacher != request.user:
+        return HttpResponseForbidden()
+    if request.method == 'POST':
+        form = AddLessonForm(request.POST)
+        if form.is_valid():
+            lesson = form.save(commit=False)
+            lesson.subject = subject
+            lesson.save()
+            return redirect('subjects:lesson-detail', pk=lesson.pk)
+    else:
+        form = AddLessonForm()
+    return render(request, 'subjects/add-lesson.html', dict(form=form))
     pass
 
 
 @login_required
-def edit_lesson(request):
-    pass
+def edit_lesson(request, pk):
+    lesson = Lesson.objects.get(id=pk)
+    if request.method == 'GET':
+        form = EditLessonForm(instance=lesson)
+    else:
+        if (form := EditLessonForm(request.POST, instance=lesson)).is_valid():
+            lesson = form.save(commit=False)
+            lesson.save()
+            return redirect('subjects:subjects-lessons')
+
+    return render(request, 'subjects/edit-lesson.html', dict(lesson=lesson, form=form))
 
 
-def delete_lesson(request):
-    pass
+def delete_lesson(request, pk):
+    lesson = Lesson.objects.get(id=pk)
+    lesson.delete()
+    return redirect('subjects:subjects-lessons')
 
 
 @login_required

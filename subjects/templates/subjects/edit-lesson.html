@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="d-flex justify-content-center">
+<form method="post"  novalidate>
+    <h1>Editando Lesson</h1>
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" class="btn btn-outline-dark" value="Editar lesson">
+    <a href="{% url 'subjects:subject-lesson' %}">Cancelar</a>
+</form>
+</div>
+{% endblock body %}

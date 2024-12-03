@@ -24,7 +24,6 @@ class Profile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='profiles'
     )
-    role = models.CharField(max_length=1, choices=Role, default=Role.STUDENT)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     role = models.CharField(max_length=1, choices=Role.choices, default=Role.STUDENT)
     bio = models.TextField(blank=True, null=True)

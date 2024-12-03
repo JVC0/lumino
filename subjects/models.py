@@ -8,9 +8,10 @@ class Subject(models.Model):
     teacher = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='taught_subjects'
     )
-    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='enrolled_subjects')
+    students = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, through='users.Enrollment', related_name='enrolled_subjects'
+    )
 
-    # through='users.Enrollment',
     def __str__(self):
         return self.code
 

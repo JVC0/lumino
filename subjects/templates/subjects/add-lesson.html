@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="d-flex justify-content-center">
+<form method="post" >
+  <h1>Create new Lesson</h1>
+  {% csrf_token %}
+  {{ form }}
+  <input type="submit" class="btn btn-outline-dark"value="Crear Lesson">
+  <a href="{% url 'subjects:subject-lesson' %}">Cancelar</a>
+</form>
+</div>
+{% endblock body %}
