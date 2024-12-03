@@ -24,6 +24,7 @@ from django.urls import include, path
 import accounts.views
 
 urlpatterns = [
+    path('__reload__/', include('django_browser_reload.urls')),
     path('', lambda _: redirect('shared:homepage')),
     path('admin/', admin.site.urls),
     path('subjects/', include('subjects.urls')),

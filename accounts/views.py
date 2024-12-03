@@ -9,29 +9,23 @@ from .forms import LoginForm, SignupForm
 
 def user_login(request):
     FALLBACK_REDIRECT = reverse('shared:homepage')
-
     if request.user.is_authenticated:
         return redirect(FALLBACK_REDIRECT)
-    login_error = False
-    next = request.GET.get('next')
-
     if request.method == 'POST':
         if (form := LoginForm(request.POST)).is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             if user := authenticate(request, username=username, password=password):
                 login(request, user)
-
-                return redirect(next or FALLBACK_REDIRECT)
+                return redirect(request.GET.get('next', FALLBACK_REDIRECT))
             else:
-                login_error = True
-
+                form.add_error(None, 'Incorrect username or password.')
     else:
         form = LoginForm()
     return render(
         request,
         'accounts/login.html',
-        dict(form=form, login_error=login_error, next=next),
+        dict(form=form),
     )
 
 

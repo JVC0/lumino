@@ -3,12 +3,12 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit
 from django import forms
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 
 
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -30,10 +30,8 @@ class SignupForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
         for field in self.Meta.required:
             self.fields[field].required = True
-
         self.helper = FormHelper()
         self.helper.attrs = dict(novalidate=True)
         self.helper.layout = Layout(
@@ -50,3 +48,9 @@ class SignupForm(forms.ModelForm):
         user.set_password(self.cleaned_data['password'])
         user = super().save(*args, **kwargs)
         return user
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if self._meta.model.objects.filter(email=email).count() > 0:
+            raise ValidationError('A user with that email already exists.')
+        return email
