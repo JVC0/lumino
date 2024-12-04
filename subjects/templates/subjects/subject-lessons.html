@@ -7,9 +7,12 @@
     <div class="card-body">
       <h5 class="card-title"> {{ lesson.title }}</h5>
       <p class="card-text">{{ lesson.content | truncatewords:20 }}</p>
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
       <a href="{% url "subjects:lesson-detail" lesson.subject.code lesson.pk %}" class="card-link">See Details</a>
+      {% if not request.user.profile.is_student %}
+      <a href="{% url "subjects:edit-lesson" %}" class="bi bi-trash"></a>
+      <a href="{% url "subjects:" %}" class="bi bi-highlighter"></a>
+      {% endif %}
+      
     </div>
   </div>
   </div>
