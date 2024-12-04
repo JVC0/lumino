@@ -9,5 +9,10 @@
     {{ subject }}
     <a href="{% url "subjects:subject-detail" subject %}">more detail</a>
   </div>
+  
   {% endfor %}  
+  {% if request.user.profile.is_student %}
+  <a href="{% url "subjects:enroll-subjects" %}">enroll</a>
+  <a href="{% url "subjects:unenroll-subjects" %}">unenroll</a>
+  {% endif %}
 {% endblock content %}

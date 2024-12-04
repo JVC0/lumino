@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render
 
-from .forms import AddLessonForm, EditLessonForm, EnrollSubjectsForm
+from .forms import AddLessonForm, EditLessonForm, EnrollSubjectsForm, UnenrollSubjectsForm
 from .models import Lesson, Subject
 
 
@@ -96,22 +96,26 @@ def edit_marks(request):
 
 
 def enroll_subjects(request):
-    if request.method == 'Post':
-        if form := EnrollSubjectsForm(request.user, data=request.Post).is_valid():
+    if request.method == 'POST':
+        if (form := EnrollSubjectsForm(request.user, data=request.POST)).is_valid():
             subjects = form.cleaned_data['subjects']
             for subject in subjects:
                 request.user.enrolled_subjects.add(subject)
-        else:
-            form = EnrollSubjectsForm(request.user)
+            return redirect('subjects:subject-list')
+
+    else:
+        form = EnrollSubjectsForm(request.user)
+
     return render(request, 'subjects/enroll.html', dict(form=form))
 
 
 def unenroll_subjects(request):
-    if request.method == 'Post':
-        if form := EnrollSubjectsForm(request.user, data=request.Post).is_valid():
+    if request.method == 'POST':
+        if (form := UnenrollSubjectsForm(request.user, data=request.POST)).is_valid():
             subjects = form.cleaned_data['subjects']
             for subject in subjects:
                 request.user.enrolled_subjects.remove(subject)
-        else:
-            form = EnrollSubjectsForm(request.user)
+            return redirect('subjects:subject-list')
+    else:
+        form = UnenrollSubjectsForm(request.user)
     return render(request, 'subjects/unenroll.html', dict(form=form))
