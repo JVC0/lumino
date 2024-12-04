@@ -11,13 +11,5 @@ def request_certificate(request):
     pass
 
 
-def enroll_subjects(request):
-    pass
-
-
-def unenroll_subjects(request):
-    pass
-
-
 def leave(request):
     pass

@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect, render
 
-from .forms import AddLessonForm, EditLessonForm
+from .forms import AddLessonForm, EditLessonForm, EnrollSubjectsForm
 from .models import Lesson, Subject
 
 
@@ -22,13 +22,6 @@ def subject_list(request):
 
 @login_required
 def subject_detail(request, code):
-    subjects = Subject.objects.get(code=code)
-    subject_lessons = Lesson.objects.filter(subject=subjects)
-    return render(request, 'subjects/subject-detail.html', dict(subject_lessons=subject_lessons))
-
-
-@login_required
-def subject_lessons(request, code):
     subject = Subject.objects.get(code=code)
     if request.user.profile.is_student():
         if not subject.students.filter(pk=request.user.pk).exists():
@@ -99,4 +92,19 @@ def mark_list(request, code):
 
 @login_required
 def edit_marks(request):
+    pass
+
+
+def enroll_subjects(request):
+    if request.method == 'Post':
+        if form := EnrollSubjectsForm(request.user, data=request.Post).is_valid():
+            subjects = form.cleaned_data['subjects']
+            for subject in subjects:
+                request.user.enrolled_subjects.add(subject)
+        else:
+            form = EnrollSubjectsForm(request.user)
+    return render(request, 'subjects/enroll.html', dict(form=form))
+
+
+def unenroll_subjects(request):
     pass

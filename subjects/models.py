@@ -6,12 +6,14 @@ class Subject(models.Model):
     code = models.CharField(max_length=50, unique=True)
     name = models.CharField(max_length=100)
     teacher = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='taught_subjects'
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='taught_subjects',
     )
     students = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,  related_name='enrolled_subjects'
+        settings.AUTH_USER_MODEL, through='subjects.Enrollment', related_name='enrolled_subjects'
     )
-# through='users.Enrollment',
+
     def __str__(self):
         return self.code
 
@@ -25,3 +27,17 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Enrollment(models.Model):
+    student = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='student_enrollments'
+    )
+    subject = models.ForeignKey(
+        'subjects.Subject', related_name='enrollments', on_delete=models.CASCADE
+    )
+    enrolled_at = models.DateField(auto_now_add=True)
+    mark = models.PositiveSmallIntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.student} - {self.subject}'

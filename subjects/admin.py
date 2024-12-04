@@ -1,11 +1,16 @@
 from django.contrib import admin
 
-from .models import Lesson, Subject
+from .models import Enrollment, Lesson, Subject
+
+
+class EnrollmentInline(admin.TabularInline):
+    model = Enrollment
+    extra = 1
 
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
-    list_display = ('code', 'name')
+    inlines = [EnrollmentInline]
 
 
 @admin.register(Lesson)
