@@ -107,4 +107,11 @@ def enroll_subjects(request):
 
 
 def unenroll_subjects(request):
-    pass
+    if request.method == 'Post':
+        if form := EnrollSubjectsForm(request.user, data=request.Post).is_valid():
+            subjects = form.cleaned_data['subjects']
+            for subject in subjects:
+                request.user.enrolled_subjects.remove(subject)
+        else:
+            form = EnrollSubjectsForm(request.user)
+    return render(request, 'subjects/unenroll.html', dict(form=form))
