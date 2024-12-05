@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1>My Courses</h1>
+    <h3>My Courses</h3>
     <div class="row">
         {% for subject in subjects %}
             <div class="col-md-4 mb-4">
@@ -11,8 +11,8 @@
                         <h5 class="card-title">{{ subject.code }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ subject.name }}</h6>
                         <p class="card-text">
-                            <strong>Teacher:</strong> {{ subject.user.get_full_name }}
-                            <img src="{{ subject.user.profile.avatar.url }}" alt="Avatar" class="avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                            <strong>Teacher:</strong> {{ subject.teacher }}
+                            <!--<img src="{{ subject.teacher.profile.avatar.url }}" alt="Avatar" class="avatar" style="width: 40px; height: 40px; border-radius: 50%;">-->
                         </p>
                         <p class="card-text">
                             <i class="bi bi-journal-bookmark"></i> {{ subject.lesson_count }} Lessons
