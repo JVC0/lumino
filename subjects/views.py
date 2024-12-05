@@ -13,6 +13,10 @@ def subject_list(request):
         subjects = request.user.enrolled_subjects.all()
     else:
         subjects = request.user.taught_subjects.all()
+    for subject in subjects:
+        subject.lesson_count = subject.lessons.count()
+        subject.student_count = subject.students.count() 
+    
     return render(
         request,
         'subjects/subject-list.html',

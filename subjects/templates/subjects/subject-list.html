@@ -1,18 +1,32 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-
-  {% for subject in subjects %}
-  <div>
-
-  
-    {{ subject }}
-    <a href="{% url "subjects:subject-detail" subject %}">more detail</a>
-  </div>
-  
-  {% endfor %}  
-  {% if request.user.profile.is_student %}
-  <a href="{% url "subjects:enroll-subjects" %}">enroll</a>
-  <a href="{% url "subjects:unenroll-subjects" %}">unenroll</a>
-  {% endif %}
-{% endblock content %}
+<div class="container mt-4">
+    <h1>My Courses</h1>
+    <div class="row">
+        {% for subject in subjects %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ subject.code }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ subject.name }}</h6>
+                        <p class="card-text">
+                            <strong>Teacher:</strong> {{ subject.user.get_full_name }}
+                            <img src="{{ subject.user.profile.avatar.url }}" alt="Avatar" class="avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                        </p>
+                        <p class="card-text">
+                            <i class="bi bi-journal-bookmark"></i> {{ subject.lesson_count }} Lessons
+                        </p>
+                        <p class="card-text">
+                            <i class="bi bi-person-fill"></i> {{ subject.student_count }} Students
+                        </p>
+                        <a href="{% url 'subjects:subject-detail' code=subject.code %}" class="btn btn-primary">See More</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No tienes asignaturas en las que estás matriculado/a.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

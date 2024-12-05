@@ -133,3 +133,8 @@ LOGIN_URL = 'login'
 STATICFILES_DIRS = [BASE_DIR / 'node_modules']
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+MEDIA_ROOT = BASE_DIR / 'media'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # Esto es para archivos estáticos en tu proyecto
+]
