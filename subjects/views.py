@@ -34,7 +34,7 @@ def subject_detail(request, code):
         if not subject.teacher == request.user:
             return HttpResponseForbidden('You are not the teacher of this subject')
     lessons = Lesson.objects.filter(subject=subject)
-    return render(request, 'subjects/subject-lessons.html', dict(lessons=lessons))
+    return render(request, 'subjects/subject-lessons.html', dict(lessons=lessons, subject=subject))
 
 
 @login_required
@@ -46,40 +46,43 @@ def lesson_detail(request, pk, code):
 
 @login_required
 def add_lesson(request, code):
-    subject = Subject.objects.get(code=code)
+    subject = Subject.objects.get(code=code)  
     if request.user.profile.is_student() or subject.teacher != request.user:
         return HttpResponseForbidden()
+    
     if request.method == 'POST':
         form = AddLessonForm(request.POST)
         if form.is_valid():
             lesson = form.save(commit=False)
             lesson.subject = subject
             lesson.save()
-            return redirect('subjects:lesson-detail', pk=lesson.pk)
+            return redirect('subjects:lesson-detail', code=subject.code, pk=lesson.pk)
+
     else:
         form = AddLessonForm()
-    return render(request, 'subjects/add-lesson.html', dict(form=form))
-    pass
+
+    return render(request, 'subjects/add-lesson.html', {'form': form, 'subject': subject})
+
 
 
 @login_required
-def edit_lesson(request, pk):
-    lesson = Lesson.objects.get(id=pk)
+def edit_lesson(request, code, pk):
+    subject = Subject.objects.get(code=code)
+    lesson = Lesson.objects.get(id=pk, subject=subject)
     if request.method == 'GET':
         form = EditLessonForm(instance=lesson)
     else:
-        if (form := EditLessonForm(request.POST, instance=lesson)).is_valid():
+        form = EditLessonForm(request.POST, instance=lesson)
+        if form.is_valid():
             lesson = form.save(commit=False)
             lesson.save()
-            return redirect('subjects:subjects-lessons')
+            return redirect('subjects:subject-lessons', code=code)
+    return render(request, 'subjects/edit-lesson.html', {'form': form, 'lesson': lesson, 'subject': subject})
 
-    return render(request, 'subjects/edit-lesson.html', dict(lesson=lesson, form=form))
-
-
-def delete_lesson(request, pk):
+def delete_lesson(request, pk, code):
     lesson = Lesson.objects.get(id=pk)
     lesson.delete()
-    return redirect('subjects:subjects-lessons')
+    return redirect('subjects:subjects-detail', code=code)
 
 
 @login_required

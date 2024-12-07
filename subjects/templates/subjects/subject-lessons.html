@@ -1,20 +1,36 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-  {% for lesson in lessons %}
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title"> {{ lesson.title }}</h5>
-      <p class="card-text">{{ lesson.content | truncatewords:20 }}</p>
-      <a href="{% url "subjects:lesson-detail" lesson.subject.code lesson.pk %}" class="card-link">See Details</a>
-      {% if not request.user.profile.is_student %}
-      <a href="{% url "subjects:edit-lesson" %}" class="bi bi-trash"></a>
-      <a href="{% url "subjects:" %}" class="bi bi-highlighter"></a>
-      {% endif %}
-      
-    </div>
-  </div>
-  </div>
-  {% endfor %}  
-{% endblock content %}
+<div class="container lesson-list-template">
+    <h3>Lessons for {{ subject.name }}</h3>
+    <ul class="lesson-list">
+        {% for lesson in lessons %}
+            <li class="lesson-item">
+                <div class="lesson-header">
+                    <h5 class="lesson-title">{{ lesson.title }}</h5>
+                    {% if not request.user.profile.is_student %}
+                        <div class="lesson-actions">
+                          <a href="{% url 'subjects:edit-lesson' lesson.subject.code lesson.pk %}" class="action-icon" title="Edit">
+                            <i class="bi bi-highlighter"></i>
+                          </a>
+                          <a href="{% url 'subjects:add-lesson' lesson.subject.code  %}" class="action-icon" title="Edit">
+                            Add Lesson
+                          </a>
+                        
+                          <a href="{% url 'subjects:delete-lesson' lesson.subject.code lesson.pk %}" class="action-icon" title="Delete">
+                            <i class="bi bi-trash"></i>
+                          </a>
+                        
+                        
+                        </div>
+                    {% endif %}
+                </div>
+                <p class="lesson-content">{{ lesson.content | truncatewords:20 }}</p>
+                <a href="{% url 'subjects:lesson-detail' lesson.subject.code lesson.pk %}" class="btn btn-secondary btn-sm">See Details</a>
+            </li>
+        {% empty %}
+            <p class="text-muted">No lessons available for this subject.</p>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

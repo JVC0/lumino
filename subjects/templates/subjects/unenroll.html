@@ -1,10 +1,27 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+
 {% block content %}
-  <div class="container">
-    <form action="" method="post">
-      {% csrf_token %}
-      {% crispy form %}
-    </form>
-  </div>
-{% endblock content %}
+<div class="container mt-5">
+            <form method="post">
+                {% csrf_token %}
+                <div class="text-start mt-2 mb-5">
+                  <button type="submit" class="btn btn-lg text-white enroll-btn">
+                      Unenroll Now
+                  </button>
+              </div>
+                <div class="row row-cols-1 row-cols-md-2 g-3">
+                    {% for field in form.subjects %}
+                        <div class="col">
+                            <label class="subject-card d-flex align-items-center p-3 h6">
+                                {{ field.tag }}
+                                <span class="ms-3">{{ field.choice_label }}</span>
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+            </form>
+   
+</div>
+{% endblock %}

@@ -1,31 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="container subject-template">
     <h3>My Courses</h3>
     <div class="row">
         {% for subject in subjects %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ subject.code }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ subject.name }}</h6>
-                        <p class="card-text">
-                            <strong>Teacher:</strong> {{ subject.teacher }}
-                            <!--<img src="{{ subject.teacher.profile.avatar.url }}" alt="Avatar" class="avatar" style="width: 40px; height: 40px; border-radius: 50%;">-->
-                        </p>
-                        <p class="card-text">
-                            <i class="bi bi-journal-bookmark"></i> {{ subject.lesson_count }} Lessons
-                        </p>
-                        <p class="card-text">
-                            <i class="bi bi-person-fill"></i> {{ subject.student_count }} Students
-                        </p>
-                        <a href="{% url 'subjects:subject-detail' code=subject.code %}" class="btn btn-primary">See More</a>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <!-- Header with Subject and Teacher Info -->
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-grow-1">
+                                <h5 class="card-title">{{ subject.name }}</h5>
+                                <h6 class="card-subtitle">{{ subject.code }}</h6>
+                                <h6 class="card-teacher mt-2">Teacher: {{ subject.teacher }}</h6>
+                            </div>
+                            <img src="{{ subject.teacher.profile.avatar.url }}" 
+                                 alt="{{ subject.teacher }}" 
+                                 class="rounded-circle ms-3">
+                        </div>
+
+                        <!-- Lessons and Students in One Row -->
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <p class="card-text">
+                                <i class="bi bi-journal-bookmark-fill"></i> 
+                                <span>{{ subject.lesson_count }} Lessons</span>
+                            </p>
+                            <p class="card-text">
+                                <i class="bi bi-people-fill"></i> 
+                                <span>{{ subject.student_count }} Students</span>
+                            </p>
+                        </div>
+
+                        <!-- Custom Button -->
+                        <div class="mt-auto">
+                            <a href="{% url 'subjects:subject-detail' subject.code %}" 
+                               class="btn btn-outline-primary">
+                                <i class="bi bi-box-arrow-right me-2"></i> Read More
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         {% empty %}
-            <p>No tienes asignaturas en las que estás matriculado/a.</p>
+            <p class="text-muted">You are not enrolled in any subjects.</p>
         {% endfor %}
     </div>
 </div>
