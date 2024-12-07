@@ -49,7 +49,6 @@ def add_lesson(request, code):
     subject = Subject.objects.get(code=code)  
     if request.user.profile.is_student() or subject.teacher != request.user:
         return HttpResponseForbidden()
-    
     if request.method == 'POST':
         form = AddLessonForm(request.POST)
         if form.is_valid():
@@ -57,10 +56,8 @@ def add_lesson(request, code):
             lesson.subject = subject
             lesson.save()
             return redirect('subjects:lesson-detail', code=subject.code, pk=lesson.pk)
-
     else:
         form = AddLessonForm()
-
     return render(request, 'subjects/add-lesson.html', {'form': form, 'subject': subject})
 
 
@@ -76,13 +73,14 @@ def edit_lesson(request, code, pk):
         if form.is_valid():
             lesson = form.save(commit=False)
             lesson.save()
-            return redirect('subjects:subject-lessons', code=code)
+            return redirect('subjects:lesson-detail', code=subject.code, pk=lesson.pk)
+        
     return render(request, 'subjects/edit-lesson.html', {'form': form, 'lesson': lesson, 'subject': subject})
 
 def delete_lesson(request, pk, code):
     lesson = Lesson.objects.get(id=pk)
     lesson.delete()
-    return redirect('subjects:subjects-detail', code=code)
+    return redirect('subjects:subject-detail', code=code)
 
 
 @login_required

@@ -1,14 +1,29 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-
-<div class="d-flex justify-content-center">
-<form method="post" >
-  <h1>Create new Lesson</h1>
-  {% csrf_token %}
-  {{ form }}
-  <input type="submit" class="btn btn-outline-dark"value="Crear Lesson">
-  <a href="{% url 'subjects:subject-detail' subject.code %}">Cancelar</a>
-</form>
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6">
+    <div class="card border-dark">
+      <h4 class="card-header">
+        Create New Lesson
+      </h4>
+      <div class="card-body">
+        <form method="post" novalidate>
+          {% csrf_token %}
+          {% crispy form %}
+          <div class="text-center mt-3">
+            <!-- Único botón de envío -->
+            <button type="submit" class="btn btn-outline-success w-100">Create Lesson</button>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-center">
+        <a href="{% url 'subjects:subject-detail' subject.code %}" class="btn btn-outline-secondary">
+          Cancel
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
-{% endblock  %}
+{% endblock %}

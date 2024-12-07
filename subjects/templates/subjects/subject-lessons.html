@@ -3,6 +3,11 @@
 {% block content %}
 <div class="container lesson-list-template">
     <h3>Lessons for {{ subject.name }}</h3>
+
+    {% if not request.user.profile.is_student %}
+        <a href="{% url 'subjects:add-lesson' subject.code %}" class="add-lesson-btn btn mb-3">Add Lesson</a>
+    {% endif %}
+
     <ul class="lesson-list">
         {% for lesson in lessons %}
             <li class="lesson-item">
@@ -10,18 +15,12 @@
                     <h5 class="lesson-title">{{ lesson.title }}</h5>
                     {% if not request.user.profile.is_student %}
                         <div class="lesson-actions">
-                          <a href="{% url 'subjects:edit-lesson' lesson.subject.code lesson.pk %}" class="action-icon" title="Edit">
-                            <i class="bi bi-highlighter"></i>
-                          </a>
-                          <a href="{% url 'subjects:add-lesson' lesson.subject.code  %}" class="action-icon" title="Edit">
-                            Add Lesson
-                          </a>
-                        
-                          <a href="{% url 'subjects:delete-lesson' lesson.subject.code lesson.pk %}" class="action-icon" title="Delete">
-                            <i class="bi bi-trash"></i>
-                          </a>
-                        
-                        
+                            <a href="{% url 'subjects:edit-lesson' lesson.subject.code lesson.pk %}" class="action-icon" title="Edit">
+                                <i class="bi bi-highlighter"></i>
+                            </a>
+                            <a href="{% url 'subjects:delete-lesson' lesson.subject.code lesson.pk %}" class="action-icon" title="Delete">
+                                <i class="bi bi-trash"></i>
+                            </a>
                         </div>
                     {% endif %}
                 </div>
