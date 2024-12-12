@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{ target_user }}
+{{target_user.profile.role}}
+{{target_user.profile.bio}}
+<img src="{{ target_user.profile.avatar.url }}" alt="">
+
+
+{% if user == target_user %}
+<div class="mt-4 text-center">
+  <a href="{% url 'users:edit-profile' target_user.username %}">editar</a>
+  <a href="{% url "users:request-certificate" %}">cert</a>
+</div>
+{% endif %}
+{% endblock content %}

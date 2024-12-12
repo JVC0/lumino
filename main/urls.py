@@ -22,13 +22,14 @@ from django.shortcuts import redirect
 from django.urls import include, path
 
 import accounts.views
-
+import users.views 
 urlpatterns = [
     path('__reload__/', include('django_browser_reload.urls')),
     path('', lambda _: redirect('shared:homepage')),
     path('admin/', admin.site.urls),
     path('subjects/', include('subjects.urls')),
-    # path('users/', include('users.urls', namespace='users')),
+    path('user/', include('users.urls', namespace='users')),
+    path('users/<str:username>/', users.views.user_detail, name='user-detail'),
     path('homepage/', include('shared.urls', namespace='homepage')),
     path('login/', accounts.views.user_login, name='login'),
     path('logout/', accounts.views.user_logout, name='logout'),
