@@ -1,24 +1,24 @@
 {% extends "base.html" %}
-{% load modal %}
+{% load shared_extras %}
+
 {% block content %}
-{{ target_user }}
-{{target_user.profile.role}}
-{{target_user.profile.bio}}
-<img src="{{ target_user.profile.avatar.url }}" alt="">
+    {{ target_user }}
+    {{ target_user.profile.role }}
+    {{ target_user.profile.bio }}
+    <img src="{{ target_user.profile.avatar.url }}" alt="">
 
+    {% if user == target_user %}
+        <div class="mt-4 text-center">
+            <a href="{% url 'users:edit-profile' target_user.username %}">editar</a>
+            <a href="{% url 'users:request-certificate' %}">cert</a>
 
-{% if user == target_user %}
-  <div class="mt-4 text-center">
-    <a href="{% url 'users:edit-profile' target_user.username %}">editar</a>
-    <a href="{% url "users:request-certificate" %}">cert</a>
-    <!-- Llama al modal -->
-  {% modal "Leave" "user/leave" title="Destroy account" body="This action will delete your account and all data<br>Are you sure?" btn_classes="btn btn-danger" btn_icon="bi bi-exclamation-triangle-fill" %}
+            <!-- Call the modal -->
+            {% modal "Leave" "users:leave" title="Destroy account" body="This action will delete your account and all data<br>Are you sure?" btn_classes="btn btn-danger" btn_icon="bi bi-exclamation-triangle-fill" %}
 
-  <!-- Botón que activa el modal -->
-  <button type="button" class="{{ btn_classes }}" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
-      <i class="{{ btn_icon }}"></i> {{ btn_text }}
-  </button>
-
-  </div>
-{% endif %}
+            <!-- Button that activates the modal -->
+            <button type="button" class="{{ btn_classes }}" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
+                <i class="{{ btn_icon }}"></i> {{ btn_text }}
+            </button>
+        </div>
+    {% endif %}
 {% endblock content %}

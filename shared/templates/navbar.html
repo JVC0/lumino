@@ -1,85 +1,5 @@
 {% load static %}
-<style>
-    body {
-        display: flex;
-        min-height: 100vh;
-        overflow-x: hidden;
-    }
-    .bg-main{
-        background-color: rgb(255, 255, 255);
-    }
-    .sidebar {
-        width: 280px;
-        height: 100vh;
-    }
-    .main-content {
-        flex-grow: 1;
-    }
-    .navbar-brand {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .navbar-brand img {
-        width: 40px;
-        height: auto;
-    }
-    .user-avatar {
-        width: 32px;
-        height: 32px;
-        object-fit: cover;
-    }
-    .sidebar-footer {
-        position: absolute;
-        bottom: 20px;
-        width: 100%;
-    }
-    body.dark-mode {
-        background-color: #121212; /* Color de fondo oscuro */
-        color: white; /* Color de texto claro */
-    }
 
-    body.dark-mode .bg-main {
-        background-color: #1e1e1e; /* Fondo de la barra lateral oscuro */
-    }
-
-    body.dark-mode .sidebar {
-        background-color: #1e1e1e; /* Fondo de la barra lateral oscuro */
-    }
-
-    body.dark-mode .nav-link {
-        color: #e0e0e0; /* Color de los enlaces en modo oscuro */
-    }
-
-    body.dark-mode .nav-link:hover {
-        color: #0A7B79; /* Color de los enlaces al pasar el mouse en modo oscuro */
-    }
-
-    body.dark-mode .navbar {
-        background-color: #1e1e1e; /* Fondo de la barra de navegación oscuro */
-    }
-
-    body.dark-mode .navbar .navbar-brand,
-    body.dark-mode .navbar .nav-link {
-        color: #e0e0e0; /* Color de texto claro en la barra de navegación */
-    }
-
-    body.dark-mode .navbar .navbar-brand:hover,
-    body.dark-mode .navbar .nav-link:hover {
-        color: #0A7B79; /* Color de texto al pasar el mouse en la barra de navegación */
-    }
-
-    body.dark-mode .dropdown-menu {
-        background-color: #1e1e1e; /* Fondo del menú desplegable oscuro */
-        color: #e0e0e0; /* Color de texto claro en el menú desplegable */
-    }
-
-    body.dark-mode .dropdown-item:hover {
-        background-color: #0A7B79; /* Color de fondo al pasar el mouse en el menú desplegable */
-
-    }
-
-</style>
 
     <!-- Sidebar -->
     <div class="sidebar bg-main border-end">
@@ -155,19 +75,22 @@
         </nav>
         <script>
             function myFunction() {
-            var element = document.body;
-            element.classList.toggle("dark-mode");
-            if (element.classList.contains("dark-mode")) {
-                localStorage.setItem("theme", "dark");
-            } else {
-                localStorage.setItem("theme", "light");
+                var element = document.body;
+                console.log("Dark mode toggle clicked");
+                element.classList.toggle("dark-mode");
+                if (element.classList.contains("dark-mode")) {
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    localStorage.setItem("theme", "light");
+                }
             }
-            }
+            
             function loadTheme() {
                 const theme = localStorage.getItem("theme");
                 if (theme) {
-                document.body.classList.toggle("dark-mode", theme === "dark");
+                    document.body.classList.toggle("dark-mode", theme === "dark");
                 }
-                }
-                window.onload = loadTheme;
+            }
+            
+            window.onload = loadTheme;
         </script>

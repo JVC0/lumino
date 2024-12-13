@@ -1,7 +1,30 @@
 body {
   font-family: "Montserrat", sans-serif;
 }
-
+:root {
+  --card-background: white;
+  --card-color1: #0a7b79;
+  --card-color2: #7ca8a1;
+  --card-color3: #065b56;
+  --card-color4: #6a7978;
+  --card-color5: #054f49;
+  --card-color6: #095e5e;
+  --card-color7: #043a33;
+  --nav-color1: white;
+  --nav-color2: black;
+}
+.dark-mode {
+  --card-background: #121212; /* Dark background */
+  --card-color1: #1abc9c; /* Lighter teal for contrast */
+  --card-color2: #4db6b6; /* Softer teal */
+  --card-color3: #0e4c4a; /* Darker teal */
+  --card-color4: #4d6360; /* Muted grayish teal */
+  --card-color5: #0a3b38; /* Darker shade of teal */
+  --card-color6: #0c4e4e; /* Slightly lighter dark teal */
+  --card-color7: #021c1a; /* Very dark teal */
+  --nav-color1: #4d6360;
+  --nav-color2: white;
+}
 /*SUBJECT LIST*/
 /* Limitar los estilos al template de Subjects */
 .subject-template .container {
@@ -9,14 +32,14 @@ body {
 }
 
 .subject-template h3 {
-  color: #0a7b79;
+  color: var(--card-color1);
   text-align: center;
   margin-bottom: 30px;
 }
 
 .subject-template .card {
-  background-color: #ffffff;
-  border: 1px solid #7ca8a1;
+  background-color: var(--card-background);
+  border: 1px solid var(--card-color2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -26,23 +49,23 @@ body {
 }
 
 .subject-template .card-title {
-  color: #0a7b79;
+  color: var(--card-color1);
   margin-bottom: 0.5rem;
 }
 
 .subject-template .card-subtitle {
-  color: #7ca8a1;
+  color: var(--card-color2);
 }
 
 .subject-template .card-teacher {
-  color: #6a7978;
+  color: var(--card-color4);
 }
 
 .subject-template .card-body .rounded-circle {
   width: 50px;
   height: 50px;
   object-fit: cover;
-  border: 2px solid #7ca8a1;
+  border: 2px solid var(--card-color2);
 }
 
 .subject-template .card-text {
@@ -52,18 +75,18 @@ body {
 
 .subject-template .card-text span {
   font-weight: 600;
-  color: #0a7b79;
+  color: var(--card-color1);
 }
 
 .subject-template .card-text i {
-  color: #0a7b79;
+  color: var(--card-color1);
   margin-right: 5px;
 }
 
 .subject-template .btn-outline-primary {
   border-radius: 30px;
-  border-color: #0a7b79;
-  color: #0a7b79;
+  border-color: var(--card-color1);
+  color: var(--card-color1);
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -72,16 +95,16 @@ body {
 }
 
 .subject-template .btn-outline-primary:hover {
-  background-color: #0a7b79;
+  background-color: var(--card-color1);
   color: white;
 }
 
 /*ENROLL*/ /* Card Styles for Subjects */
 .subject-card {
-  background-color: #ffffff;
-  border: 1px solid #065b56;
+  background-color: var(--card-background);
+  border: 1px solid var(--card-color3);
   border-radius: 8px;
-  color: rgb(87, 100, 95);
+  color: #57645f;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -92,24 +115,24 @@ body {
 }
 
 .subject-card input[type="checkbox"] {
-  accent-color: #0a7b79;
+  accent-color: var(--card-color1);
   transform: scale(1.3);
 }
 
 .enroll-btn {
-  background-color: #0a7b79;
+  background-color: var(--card-color1);
   border: none;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .enroll-btn:hover {
-  background-color: #065b56;
+  background-color: var(--card-color3);
   transform: scale(1.05);
 }
 
 /*SUBJECT LESSONS*/ /* Estilos para la lista de lecciones */
 .add-lesson-btn {
-  background-color: #065b56;
+  background-color: var(--card-color3);
   color: white;
   padding: 10px 20px;
   font-size: 16px;
@@ -120,13 +143,13 @@ body {
 }
 
 .add-lesson-btn:hover {
-  background-color: #054f49;
+  background-color: var(--card-color5);
   color: white;
   transform: scale(1.05);
 }
 
 .add-lesson-btn:active {
-  background-color: #043a33;
+  background-color: var(--card-color6);
   transform: scale(1);
 }
 
@@ -140,7 +163,7 @@ body {
 }
 
 .lesson-list-template h3 {
-  color: #0a7b79;
+  color: var(--card-color1);
   text-align: center;
   margin-bottom: 20px;
 }
@@ -152,8 +175,8 @@ body {
 }
 
 .lesson-item {
-  background: #ffffff;
-  border: 1px solid #7ca8a1;
+  background: var(--card-background);
+  border: 1px solid var(--card-color2);
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 15px;
@@ -175,7 +198,7 @@ body {
 .lesson-title {
   font-size: 1.25rem;
   font-weight: bold;
-  color: #0a7b79;
+  color: var(--card-color1);
   margin: 0;
 }
 
@@ -186,23 +209,23 @@ body {
 
 .action-icon {
   font-size: 1.2rem;
-  color: #7ca8a1;
+  color: var(--card-color2);
   transition: color 0.2s ease;
 }
 
 .action-icon:hover {
-  color: #0a7b79;
+  color: var(--card-color1);
 }
 
 .lesson-content {
   font-size: 0.95rem;
-  color: #6a7978;
+  color: var(--card-color4);
   margin: 10px 0;
 }
 
 .btn-secondary {
-  background-color: #0a7b79;
-  color: #ffffff;
+  background-color: var(--card-color1);
+  color: var(--card-background);
   border-radius: 20px;
   padding: 5px 15px;
   font-size: 0.85rem;
@@ -210,14 +233,14 @@ body {
 }
 
 .btn-secondary:hover {
-  background-color: #095e5e;
+  background-color: var(--card-color6);
   color: white;
 }
 
 /*/*LESSON DETAIL*/
 .lesson-detail-template .card {
   border-radius: 12px;
-  background-color: #fff;
+  background-color: var(--card-background);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -261,12 +284,47 @@ body {
 
 .lesson-detail-template .btn-outline-secondary:hover {
   background-color: #f8f9fa;
-  color: #065b56;
-  border-color: #065b56;
+  color: var(--card-color3);
+  border-color: var(--card-color3);
 }
 .lesson-detail-template .bg-custom {
-  background-color: #7ca8a1;
+  background-color: var(--card-color2);
 }
 
-/*/*DARK MODE*/
-
+body {
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.bg-main {
+  background-color: var(--nav-color1);
+}
+.sidebar {
+  width: 280px;
+  height: 100vh;
+}
+.main-content {
+  flex-grow: 1;
+}
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.navbar-brand img {
+  width: 40px;
+  height: auto;
+}
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+}
+.sidebar-footer {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+.navbar {
+  color: var(--nav-color2);
+}
