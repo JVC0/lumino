@@ -8,6 +8,11 @@ class EnrollmentInline(admin.TabularInline):
     extra = 1
 
 
+@admin.register(Enrollment)
+class EnrollmentAdmin(admin.ModelAdmin):
+    list_display = ('student', 'subject', 'mark')
+
+
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
     inlines = [EnrollmentInline]

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% for enrollment in enrollments %}
+    <div>
+      {{enrollment.student}}
+      {{enrollment.mark}}
+      <img src="{{enrollment.student.profile.avatar.url}}" alt="">
+    </div>
+  {% endfor %}
+{% endblock %}

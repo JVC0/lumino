@@ -18,15 +18,14 @@ def user_detail(request, username):
     )
 
 
-def edit_profile(request, username):
-    profile_user = User.objects.get(username=username)
-    profile = profile_user.profile
+def edit_profile(request):
+    profile = request.user.profile
     if request.method == 'POST':
         if (form := EditProfileForm(request.POST, request.FILES, instance=profile)).is_valid():
             profile = form.save(commit=False)
 
             profile.save()
-            return redirect('user-detail', username)
+            return redirect('user-detail', request.user)
     else:
         form = EditProfileForm(instance=profile)
     return render(request, 'users/edit-profile.html', dict(profile=profile, form=form))
@@ -48,7 +47,13 @@ def request_certificate(request, *args, **kwargs):
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
-#https://xhtml2pdf.readthedocs.io/en/stable/usage.html#using-with-python-standalone
+
+
+# https://xhtml2pdf.readthedocs.io/en/stable/usage.html#using-with-python-standalone
+
 
 def leave(request):
-    pass
+    user = request.user
+    # if request.method in ['POST', 'GET']:
+    user.delete()
+    return redirect('shared:homepage')

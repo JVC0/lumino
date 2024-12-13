@@ -34,6 +34,50 @@
         bottom: 20px;
         width: 100%;
     }
+    body.dark-mode {
+        background-color: #121212; /* Color de fondo oscuro */
+        color: white; /* Color de texto claro */
+    }
+
+    body.dark-mode .bg-main {
+        background-color: #1e1e1e; /* Fondo de la barra lateral oscuro */
+    }
+
+    body.dark-mode .sidebar {
+        background-color: #1e1e1e; /* Fondo de la barra lateral oscuro */
+    }
+
+    body.dark-mode .nav-link {
+        color: #e0e0e0; /* Color de los enlaces en modo oscuro */
+    }
+
+    body.dark-mode .nav-link:hover {
+        color: #0A7B79; /* Color de los enlaces al pasar el mouse en modo oscuro */
+    }
+
+    body.dark-mode .navbar {
+        background-color: #1e1e1e; /* Fondo de la barra de navegación oscuro */
+    }
+
+    body.dark-mode .navbar .navbar-brand,
+    body.dark-mode .navbar .nav-link {
+        color: #e0e0e0; /* Color de texto claro en la barra de navegación */
+    }
+
+    body.dark-mode .navbar .navbar-brand:hover,
+    body.dark-mode .navbar .nav-link:hover {
+        color: #0A7B79; /* Color de texto al pasar el mouse en la barra de navegación */
+    }
+
+    body.dark-mode .dropdown-menu {
+        background-color: #1e1e1e; /* Fondo del menú desplegable oscuro */
+        color: #e0e0e0; /* Color de texto claro en el menú desplegable */
+    }
+
+    body.dark-mode .dropdown-item:hover {
+        background-color: #0A7B79; /* Color de fondo al pasar el mouse en el menú desplegable */
+
+    }
 
 </style>
 
@@ -50,21 +94,20 @@
                         <i class="bi bi-house-door me-2"></i> Home
                     </a>
                 </li>
-              
-               {% if request.user.profile.is_student %}
-               <li class="nav-item ">
+                {% if request.user.profile.is_student %}
+                <li class="nav-item ">
                     <a class="nav-link link-dark" href="{% url 'subjects:enroll-subjects' %}">
-                         <i class="bi bi-people me-2"></i> Enroll</a>
-               </li>
+                        <i class="bi bi-people me-2"></i> Enroll</a>
+                </li>
                     
-               <li>
+                <li>
                     <a class="nav-link link-dark" href="{% url 'subjects:unenroll-subjects' %}">
                         <i class="bi bi-door-closed"></i> Unenroll</a>
-               </li>
-               {% endif %}
-               </ul>
-                    <div class="sidebar-footer" onclick="myFunction()">
-                        <a  href="#" class="link-dark">
+                </li>
+                {% endif %}
+                </ul>
+                    <div class="sidebar-footer" onclick="myFunction()" >
+                        <a  href="#"  class="link-dark">
                         <i  class="bi bi-moon me-2"></i> Dark Mode
                         </a>
                     </div>

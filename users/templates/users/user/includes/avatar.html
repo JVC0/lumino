@@ -1,0 +1,5 @@
+{% load thumbnail %}
+
+{% thumbnail user.profile.avatar size crop="center" format="PNG" as avatar %}
+    <img src="{{ avatar.url }}" alt="Avatar">
+{% endthumbnail %}
