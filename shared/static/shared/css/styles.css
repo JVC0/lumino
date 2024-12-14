@@ -30,8 +30,12 @@ body {
 body{
   background-color: var(--body-color);
 }
+
 .link-custom{
   color: var(--nav-color2);
+}
+.h-custom{
+  color: var(--card-color2);
 }
 .text-muted{
   color: var(--nav-color2) !important;
@@ -457,4 +461,15 @@ body {
   margin: 0.3rem;
 }
 
+
+/*MARK LIST*/
+.table td, .table th {
+  vertical-align: middle; 
+  text-align: center; 
+  padding: 12px 8px; 
+  
+}
+.table th {
+  background-color: var(--card-color5);
+}
 

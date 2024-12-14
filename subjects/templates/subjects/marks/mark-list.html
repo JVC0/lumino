@@ -1,11 +1,30 @@
 {% extends "base.html" %}
+{% load subject_extras %}
 
 {% block content %}
-  {% for enrollment in enrollments %}
-    <div>
-      {{enrollment.student}}
-      {{enrollment.mark}}
-      <img src="{{enrollment.student.profile.avatar.url}}" alt="">
-    </div>
-  {% endfor %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4 h-custom">Student Marks</h2>
+  <div class="table-responsive">
+      <table class="table table-striped table-hover table-bordered" style="max-width: 80%; margin: auto;">
+          <thead class="table-dark">
+              <tr>
+                  <th scope="col">Student</th>
+                  <th scope="col">Mark</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for enrollment in enrollments %}
+                  <tr>
+                      <td>
+                          {% student_label_list enrollment.student %}
+                      </td>
+                          {% pretty_mark enrollment.mark %}
+                      
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+</div>
+
 {% endblock %}
