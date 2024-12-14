@@ -8,19 +8,23 @@
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
                     <div class="card-body d-flex flex-column">
-                        <!-- Header with Subject and Teacher Info -->
                         <div class="d-flex align-items-center mb-3">
                             <div class="flex-grow-1">
                                 <h5 class="card-title">{{ subject.name }}</h5>
                                 <h6 class="card-subtitle">{{ subject.code }}</h6>
-                                <h6 class="card-teacher mt-2">Teacher: {{ subject.teacher }}</h6>
+                                <h6 class="card-teacher mt-2">
+                                    Teacher: 
+                                    <a href="{% url 'user-detail' subject.teacher %}" class="text-decoration-none">
+                                        {{ subject.teacher }}
+                                    </a>
+                                </h6>
+                                
                             </div>
                             <img src="{{ subject.teacher.profile.avatar.url }}" 
                                  alt="{{ subject.teacher }}" 
                                  class="rounded-circle ms-3">
                         </div>
 
-                        <!-- Lessons and Students in One Row -->
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <p class="card-text">
                                 <i class="bi bi-journal-bookmark-fill"></i> 
@@ -32,7 +36,6 @@
                             </p>
                         </div>
 
-                        <!-- Custom Button -->
                         <div class="mt-auto">
                             <a href="{% url 'subjects:subject-detail' subject.code %}" 
                                class="btn btn-outline-primary">

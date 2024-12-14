@@ -128,7 +128,7 @@ body{
 }
 
 .btn-primary:hover {
-  background-color: var(--card-color4);
+  background-color: var(--card-color2);
   border-color: var(--card-color4);
 }
 
@@ -211,7 +211,7 @@ body{
   background-color: var(--card-background);
   border: 1px solid var(--card-color3);
   border-radius: 8px;
-  color: #57645f;
+  color: var(--card-color4);
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
