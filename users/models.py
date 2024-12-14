@@ -18,7 +18,7 @@ class Profile(models.Model):
 
     def is_student(self):
         return self.user.profile.role == Profile.Role.STUDENT
-        return self.role == Profile.Role.STUDENT
+        
 
     def __str__(self):
         return f'{self.user.username} - {self.get_role_display()}'

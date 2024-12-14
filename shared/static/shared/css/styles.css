@@ -2,6 +2,7 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 :root {
+  --body-color: #D3F2E9;
   --card-background: white;
   --card-color1: #0a7b79;
   --card-color2: #7ca8a1;
@@ -10,21 +11,122 @@ body {
   --card-color5: #054f49;
   --card-color6: #095e5e;
   --card-color7: #043a33;
-  --nav-color1: white;
+  --nav-color1: #ffffff;
   --nav-color2: black;
 }
 .dark-mode {
-  --card-background: #121212; /* Dark background */
+  --body-color: #121212;
+  --card-background: #021c1a; /* Dark background */
   --card-color1: #1abc9c; /* Lighter teal for contrast */
   --card-color2: #4db6b6; /* Softer teal */
-  --card-color3: #0e4c4a; /* Darker teal */
-  --card-color4: #4d6360; /* Muted grayish teal */
+  --card-color3: #1d7877; /* Darker teal */
+  --card-color4: #bbdfda; /* Muted grayish teal */
   --card-color5: #0a3b38; /* Darker shade of teal */
   --card-color6: #0c4e4e; /* Slightly lighter dark teal */
   --card-color7: #021c1a; /* Very dark teal */
-  --nav-color1: #4d6360;
+  --nav-color1: #03221f;
   --nav-color2: white;
 }
+body{
+  background-color: var(--body-color);
+}
+.link-custom{
+  color: var(--nav-color2);
+}
+.text-muted{
+  color: var(--nav-color2) !important;
+}
+.welcome-message {
+  font-size: 3rem;
+  font-weight: light;
+  color: #065b56; 
+  animation: slideIn 3s ease-out, colorChange 4s infinite alternate;
+  display: inline-block;
+}
+
+/* Efecto de deslizamiento y escalado */
+@keyframes slideIn {
+  0% {
+      transform: translateY(-100%) scale(0);
+      opacity: 0;
+  }
+  50% {
+      transform: translateY(0) scale(1.1);
+      opacity: 1;
+  }
+  100% {
+      transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes colorChange {
+  0% {
+      color: #065b56;
+  }
+  50% {
+      color: #7ca8a1;
+  }
+  100% {
+      color: #0a7b79;
+  }
+}
+
+.welcome-text {
+  color: var(--card-color4);
+  font-size: 20px;
+  font-weight: light;
+  margin-bottom: 10px;
+}
+
+.wizard-gif {
+  width: 27%;
+  height: auto;
+  animation: moveMagic 5s ease-in-out infinite;
+}
+
+/* Animación del GIF para hacerlo moverse un poco */
+@keyframes moveMagic {
+  0% {
+      transform: translateX(-10px);
+  }
+  50% {
+      transform: translateX(10px);
+  }
+  100% {
+      transform: translateX(-10px);
+  }
+}
+
+/* Estilo para los botones */
+.custom-btn {
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary {
+  border-color: var(--card-color3);
+  color: var(--card-color3);
+  background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--card-color3);
+  color: white;
+  border-color: var(--card-color3);
+}
+
+.btn-primary {
+  background-color: var(--card-color3);
+  border-color: var(--card-color3);
+}
+
+.btn-primary:hover {
+  background-color: var(--card-color4);
+  border-color: var(--card-color4);
+}
+
 /*SUBJECT LIST*/
 /* Limitar los estilos al template de Subjects */
 .subject-template .container {
@@ -230,6 +332,7 @@ body {
   padding: 5px 15px;
   font-size: 0.85rem;
   transition: background-color 0.2s ease;
+  border-color: var(--card-background);
 }
 
 .btn-secondary:hover {
@@ -263,7 +366,7 @@ body {
 .lesson-detail-template .lesson-content p {
   font-size: 1rem;
   line-height: 1.6;
-  color: #555;
+  color: var(--card-color4);
 }
 
 .lesson-detail-template .lesson-actions .btn {
@@ -328,3 +431,30 @@ body {
 .navbar {
   color: var(--nav-color2);
 }
+
+
+/*PROFILE*/
+/* Profile Avatar */
+
+
+/* Profile Name */
+.profile-name {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--card-color6);
+}
+
+/* Profile Bio */
+.profile-bio {
+  font-size: 1rem;
+  font-style: italic;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+/* Profile Actions */
+.profile-actions .btn {
+  margin: 0.3rem;
+}
+
+

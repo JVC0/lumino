@@ -1,24 +1,47 @@
 {% extends "base.html" %}
-{% load shared_extras %}
+{% load thumbnail %}
 
 {% block content %}
-    {{ target_user }}
-    {{ target_user.profile.role }}
-    {{ target_user.profile.bio }}
-    <img src="{{ target_user.profile.avatar.url }}" alt="">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <!-- Avatar -->
+            <div class="profile-avatar mb-3">
+                {% thumbnail target_user.profile.avatar "200x200" crop="center" format="PNG" as avatar %}
+                    <img src="{{ avatar.url }}" alt="Avatar" class="rounded-circle shadow">
+                {% endthumbnail %}
+            </div>
 
-    {% if user == target_user %}
-        <div class="mt-4 text-center">
-            <a href="{% url 'users:edit-profile' target_user.username %}">editar</a>
-            <a href="{% url 'users:request-certificate' %}">cert</a>
+            <!-- User Info -->
+            <h2 class="profile-name">{{ target_user }}</h2>
+            <p class="badge bg-primary">{{ target_user.profile.get_role_display }}</p>
+            <p class="profile-bio text-muted">{{ target_user.profile.bio|default:"No bio available." }}</p>
 
-            <!-- Call the modal -->
-            {% modal "Leave" "users:leave" title="Destroy account" body="This action will delete your account and all data<br>Are you sure?" btn_classes="btn btn-danger" btn_icon="bi bi-exclamation-triangle-fill" %}
+          
+            
 
-            <!-- Button that activates the modal -->
-            <button type="button" class="{{ btn_classes }}" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
-                <i class="{{ btn_icon }}"></i> {{ btn_text }}
-            </button>
+      
+
+            <!-- Buttons (if current user is viewing their own profile) -->
+            {% if user == target_user %}
+                <div class="profile-actions mt-4">
+                    <a href="{% url 'users:edit-profile' %}" class="btn btn-outline-primary btn-sm">
+                        Edit Profile
+                    </a>
+                    {% if target_user.profile.is_student %}
+                    <a href="{% url 'users:request-certificate' %}" class="btn btn-outline-success btn-sm">
+                        Request Certificate
+                    </a>
+                    {% endif %}
+                    <!-- Modal for account deletion 
+                    {% modal "Leave" "users:leave" title="Destroy account" 
+                        body="This action will delete your account and all data. Are you sure?" 
+                        btn_classes="btn btn-danger btn-sm" 
+                        btn_icon="bi bi-exclamation-triangle-fill" %}
+                -->
+                </div>
+            {% endif %}
         </div>
-    {% endif %}
-{% endblock content %}
+    </div>
+</div>
+{% endblock %}

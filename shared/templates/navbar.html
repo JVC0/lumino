@@ -1,33 +1,31 @@
 {% load static %}
-
-
     <!-- Sidebar -->
-    <div class="sidebar bg-main border-end">
+    <div class="sidebar bg-main">
         <div class="p-3">
-            <a href="/" class="navbar-brand text-dark fs-4 fw-bold">
-                <i class="bi bi-eyeglasses">LUMINO</i>
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto  text-decoration-none">
+                <p class="link-custom h4 fw-light">LUMINO</p>
             </a>
             <hr>
             <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a href="{% url 'subjects:subject-list' %}" class="nav-link link-dark">
+                <li class="nav-item link-custom">
+                    <a href="{% url 'subjects:subject-list' %}" class="nav-link link-custom">
                         <i class="bi bi-house-door me-2"></i> Home
                     </a>
                 </li>
                 {% if request.user.profile.is_student %}
-                <li class="nav-item ">
-                    <a class="nav-link link-dark" href="{% url 'subjects:enroll-subjects' %}">
+                <li class="nav-item link-custom">
+                    <a class="nav-link" href="{% url 'subjects:enroll-subjects' %}">
                         <i class="bi bi-people me-2"></i> Enroll</a>
                 </li>
                     
                 <li>
-                    <a class="nav-link link-dark" href="{% url 'subjects:unenroll-subjects' %}">
-                        <i class="bi bi-door-closed"></i> Unenroll</a>
+                    <a class="nav-link link-custom" href="{% url 'subjects:unenroll-subjects' %}">
+                        <i class="bi bi-door-closed "></i> Unenroll</a>
                 </li>
                 {% endif %}
                 </ul>
                     <div class="sidebar-footer" onclick="myFunction()" >
-                        <a  href="#"  class="link-dark">
+                        <a  href="#"  class="link-custom">
                         <i  class="bi bi-moon me-2"></i> Dark Mode
                         </a>
                     </div>
@@ -40,7 +38,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-main shadow-sm">
             <div class="container-fluid">
                 <h5>
-                    <i class="bi bi-lightbulb me-2"></i> Welcome {{ request.user.username }} !
+                    <i class="bi bi-lightbulb me-2"></i> Hello {{ request.user.username }} !
                 </h5>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,15 +57,13 @@
                                 <img src="{{ request.user.profile.avatar.url }}" alt="Avatar" class="rounded-circle me-1" width="30" height="30">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                    <li><a class="dropdown-item" href="{% url "user-detail" user %}">Profile</a></li>
-                                    <li><a class="dropdown-item" href="">Settings</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'user-detail' user %}">Profile</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'users:edit-profile' %}">Settings</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                                 </ul>
                             </div>
-                        {% else %}
-                            <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">Login</a>
-                            <a href="{% url 'signup' %}" class="btn btn-primary">Sign up</a>
+                            
                         {% endif %}
                     </div>
                 </div>
