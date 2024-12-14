@@ -120,6 +120,7 @@ body{
 .btn-primary {
   background-color: var(--card-color3);
   border-color: var(--card-color3);
+  color: var(--nav-color1);
 }
 
 .btn-primary:hover {
@@ -327,7 +328,7 @@ body{
 
 .btn-secondary {
   background-color: var(--card-color1);
-  color: var(--card-background);
+  color: white;
   border-radius: 20px;
   padding: 5px 15px;
   font-size: 0.85rem;
@@ -336,7 +337,6 @@ body{
 }
 
 .btn-secondary:hover {
-  background-color: var(--card-color6);
   color: white;
 }
 

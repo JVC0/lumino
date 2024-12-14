@@ -119,7 +119,7 @@ def edit_marks(request, code: str):
         if formset.is_valid():
             formset.save()
             messages.add_message(request, messages.SUCCESS, 'Marks Successfully Saved')
-            return redirect(reverse('subjects:edit-marks', kwargs={'code': code}))
+            return redirect(reverse('subjects:mark-list', kwargs={'code': code}))
     else:
         formset = MarkFormset(queryset=queryset)
 
