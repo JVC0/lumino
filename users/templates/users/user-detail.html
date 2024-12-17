@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+{% load shared_extras %}
 
 {% block content %}
 <div class="container mt-5">
@@ -24,16 +25,12 @@
                         Edit Profile
                     </a>
                     {% if target_user.profile.is_student %}
-                    <a href="{% url 'users:request-certificate' %}" class="btn btn-outline-success btn-sm">
-                        Request Certificate
-                    </a>
+                        <a href="{% url 'users:request-certificate' %}" class="btn btn-outline-success btn-sm">
+                            Request Certificate
+                        </a>
                     {% endif %}
-                    <!-- Modal for account deletion 
-                    {% modal "Leave" "users:leave" title="Destroy account" 
-                        body="This action will delete your account and all data. Are you sure?" 
-                        btn_classes="btn btn-danger btn-sm" 
-                        btn_icon="bi bi-exclamation-triangle-fill" %}
-                -->
+                    
+                    {% modal "Leave" url="users:leave" title="Destroy account" body="This action will delete your account and all data. Are you sure?" action="Continue" btn_classes="btn btn-danger btn-sm" btn_icon="bi bi-exclamation-triangle-fill" %}
                 </div>
             {% endif %}
         </div>

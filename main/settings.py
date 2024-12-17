@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_browser_reload',
     'sorl.thumbnail',
+    'django_rq',
 ]
 
 MIDDLEWARE = [
@@ -128,7 +129,13 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+    },
+}
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
 STATICFILES_DIRS = [BASE_DIR / 'node_modules']
