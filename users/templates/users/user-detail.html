@@ -17,11 +17,6 @@
             <p class="badge bg-primary">{{ target_user.profile.get_role_display }}</p>
             <p class="profile-bio text-muted">{{ target_user.profile.bio|default:"No bio available." }}</p>
 
-          
-            
-
-      
-
             <!-- Buttons (if current user is viewing their own profile) -->
             {% if user == target_user %}
                 <div class="profile-actions mt-4">

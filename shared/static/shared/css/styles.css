@@ -2,7 +2,7 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 :root {
-  --body-color: #D3F2E9;
+  --body-color: #d3f2e9;
   --card-background: white;
   --card-color1: #0a7b79;
   --card-color2: #7ca8a1;
@@ -16,34 +16,34 @@ body {
 }
 .dark-mode {
   --body-color: #121212;
-  --card-background: #021c1a; /* Dark background */
-  --card-color1: #1abc9c; /* Lighter teal for contrast */
-  --card-color2: #4db6b6; /* Softer teal */
-  --card-color3: #1d7877; /* Darker teal */
-  --card-color4: #bbdfda; /* Muted grayish teal */
-  --card-color5: #0a3b38; /* Darker shade of teal */
-  --card-color6: #0c4e4e; /* Slightly lighter dark teal */
-  --card-color7: #021c1a; /* Very dark teal */
+  --card-background: #021c1a;
+  --card-color1: #1abc9c;
+  --card-color2: #4db6b6;
+  --card-color3: #1d7877;
+  --card-color4: #bbdfda;
+  --card-color5: #0a3b38;
+  --card-color6: #0c4e4e;
+  --card-color7: #021c1a;
   --nav-color1: #03221f;
   --nav-color2: white;
 }
-body{
+body {
   background-color: var(--body-color);
 }
 
-.link-custom{
+.link-custom {
   color: var(--nav-color2);
 }
-.h-custom{
+.h-custom {
   color: var(--card-color2);
 }
-.text-muted{
+.text-muted {
   color: var(--nav-color2) !important;
 }
 .welcome-message {
   font-size: 3rem;
   font-weight: light;
-  color: #065b56; 
+  color: #065b56;
   animation: slideIn 3s ease-out, colorChange 4s infinite alternate;
   display: inline-block;
 }
@@ -51,27 +51,27 @@ body{
 /* Efecto de deslizamiento y escalado */
 @keyframes slideIn {
   0% {
-      transform: translateY(-100%) scale(0);
-      opacity: 0;
+    transform: translateY(-100%) scale(0);
+    opacity: 0;
   }
   50% {
-      transform: translateY(0) scale(1.1);
-      opacity: 1;
+    transform: translateY(0) scale(1.1);
+    opacity: 1;
   }
   100% {
-      transform: translateY(0) scale(1);
+    transform: translateY(0) scale(1);
   }
 }
 
 @keyframes colorChange {
   0% {
-      color: #065b56;
+    color: #065b56;
   }
   50% {
-      color: #7ca8a1;
+    color: #7ca8a1;
   }
   100% {
-      color: #0a7b79;
+    color: #0a7b79;
   }
 }
 
@@ -91,13 +91,13 @@ body{
 /* Animación del GIF para hacerlo moverse un poco */
 @keyframes moveMagic {
   0% {
-      transform: translateX(-10px);
+    transform: translateX(-10px);
   }
   50% {
-      transform: translateX(10px);
+    transform: translateX(10px);
   }
   100% {
-      transform: translateX(-10px);
+    transform: translateX(-10px);
   }
 }
 
@@ -436,10 +436,8 @@ body {
   color: var(--nav-color2);
 }
 
-
 /*PROFILE*/
 /* Profile Avatar */
-
 
 /* Profile Name */
 .profile-name {
@@ -461,15 +459,13 @@ body {
   margin: 0.3rem;
 }
 
-
 /*MARK LIST*/
-.table td, .table th {
-  vertical-align: middle; 
-  text-align: center; 
-  padding: 12px 8px; 
-  
+.table td,
+.table th {
+  vertical-align: middle;
+  text-align: center;
+  padding: 12px 8px;
 }
 .table th {
   background-color: var(--card-color5);
 }
-
