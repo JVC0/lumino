@@ -16,7 +16,10 @@ from .forms import (
 from .models import Enrollment, Lesson, Subject
 from .tasks import deliver_certificate
 
+from django.contrib import messages
 
+
+    
 @login_required
 def subject_list(request):
     if request.user.profile.is_student():
@@ -65,11 +68,12 @@ def add_lesson(request, code):
             lesson = form.save(commit=False)
             lesson.subject = subject
             lesson.save()
+            messages.add_message(request, messages.SUCCESS, 'Changes were successfully saved')
             return redirect('subjects:lesson-detail', code=subject.code, pk=lesson.pk)
+        messages.add_message(request, messages.ERROR, 'Something went wrong')
     else:
         form = AddLessonForm()
     return render(request, 'subjects/add-lesson.html', {'form': form, 'subject': subject})
-
 
 @login_required
 def edit_lesson(request, code, pk):
