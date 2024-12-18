@@ -1,4 +1,11 @@
 
+<button type="button" class="{{ btn_classes }}" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}">
+    {% if btn_icon %}
+        <i class="{{ btn_icon }}"></i>
+    {% endif %}
+    {{ btn_text }}
+</button>
+
 <div class="modal fade" id="{{ modal_id }}" tabindex="-1" aria-labelledby="{{ modal_id }}Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -11,8 +18,9 @@
             </div>
             <div class="modal-footer">
                 <a href="{{ url }}" class="btn {{ btn_classes }}">{{ action }}</a>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+

@@ -14,9 +14,9 @@ from .forms import (
     UnenrollSubjectsForm,
 )
 from .models import Enrollment, Lesson, Subject
+from .tasks import deliver_certificate
 
 
-# Create your views here.
 @login_required
 def subject_list(request):
     if request.user.profile.is_student():
@@ -155,3 +155,13 @@ def unenroll_subjects(request):
     else:
         form = UnenrollSubjectsForm(request.user)
     return render(request, 'subjects/unenroll.html', dict(form=form))
+
+
+@login_required
+def request_certificate(request):
+    if request.user.enrollments.filter(mark__isnull=False).exists():
+        base_url = request.build_absolute_uri('/')
+        deliver_certificate.delay(base_url, request.user)
+        return render(request, 'subjects/certificate/certificate.html')
+    else:
+        return HttpResponseForbidden()

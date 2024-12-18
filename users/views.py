@@ -26,14 +26,7 @@ def edit_profile(request):
     return render(request, 'users/edit-profile.html', dict(profile=profile, form=form))
 
 
-def request_certificate(request):
-    pass
-
-
-
-
 def leave(request):
     user = request.user
-    # if request.method in ['POST', 'GET']:
     user.delete()
     return redirect('shared:homepage')
