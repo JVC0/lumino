@@ -14,14 +14,11 @@
                 </li>
                 {% if request.user.profile.is_student %}
                 <li class="nav-item ">
-                    {% if request.user.enrollments.subjects.count == subjects.count %}
-                        
-                        {{ request.user.enrollments.subjects.count }}
-                        <a class="nav-link link-custom disabled" href="{% url 'subjects:enroll-subjects' %}">
+                    {% if request.user.enrollments.subjects.count == 0 %}
+                        <a class="nav-link link-custom " href="{% url 'subjects:enroll-subjects' %}">
                             <i class="bi bi-people me-2"></i> Enroll</a>
                     {% else %}
                         
-                        {{subjects.count }}
                         <a class="nav-link link-custom" href="{% url 'subjects:enroll-subjects' %}">
                             <i class="bi bi-people me-2"></i> Enroll</a>
                     {% endif %}
@@ -29,7 +26,7 @@
                     
                 <li>
                     {% if request.user.enrollments.subjects.count == 0 %}
-                    <a class="nav-link link-custom disabled" href="{% url 'subjects:unenroll-subjects' %}">
+                    <a class="nav-link link-custom " href="{% url 'subjects:unenroll-subjects' %}">
                         <i class="bi bi-door-closed "></i> Unenroll</a>
                     {% else %}
                     <a class="nav-link link-custom" href="{% url 'subjects:unenroll-subjects' %}">

@@ -7,8 +7,8 @@ app_name = 'subjects'
 # re-path [A-Z]{3} (?P<code>[A-Z]{3}) (?P<pk>\d+)
 urlpatterns = [
     path('', views.subject_list, name='subject-list'),
-    path('enroll', views.enroll_subjects, name='enroll-subjects'),
-    path('unenroll', views.unenroll_subjects, name='unenroll-subjects'),
+    path('enroll/', views.enroll_subjects, name='enroll-subjects'),
+    path('unenroll/', views.unenroll_subjects, name='unenroll-subjects'),
     path('certificate/', views.request_certificate, name='request-certificate'),
     re_path(r'^(?P<code>[A-Z]{3})/$', views.subject_detail, name='subject-detail'),
     re_path(r'^(?P<code>[A-Z]{3})/marks/$', views.mark_list, name='mark-list'),

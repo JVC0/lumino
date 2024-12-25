@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -17,6 +18,7 @@ def user_login(request):
             password = form.cleaned_data['password']
             if user := authenticate(request, username=username, password=password):
                 login(request, user)
+                messages.success(request, 'Welcome to Lumino. Nice to see you!.')
                 return redirect(request.GET.get('next', FALLBACK_REDIRECT))
             else:
                 form.add_error(None, 'Incorrect username or password.')
@@ -40,7 +42,7 @@ def user_signup(request):
             user = form.save()
             Profile.objects.create(user=user)
             login(request, user)
-
+            messages.success(request, 'Welcome to Lumino. Nice to see you!.')
             return redirect('shared:homepage')
     else:
         form = SignupForm()

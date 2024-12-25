@@ -65,7 +65,7 @@ def add_lesson(request, code):
             lesson = form.save(commit=False)
             lesson.subject = subject
             lesson.save()
-            messages.success(request, 'Changes were successfully saved')
+            messages.success(request, 'Lesson was successfully added.')
             return redirect('subjects:lesson-detail', code=subject.code, pk=lesson.pk)
         messages.error(request, messages.ERROR, 'Something went wrong')
     else:
@@ -84,7 +84,7 @@ def edit_lesson(request, code, pk):
         if form.is_valid():
             lesson = form.save(commit=False)
             lesson.save()
-            messages.success(request, 'Changes were successfully saved')
+            messages.success(request, 'Changes were successfully saved.')
             return redirect('subjects:lesson-detail', code=subject.code, pk=lesson.pk)
 
     return render(
@@ -92,8 +92,10 @@ def edit_lesson(request, code, pk):
     )
 
 
+@login_required
 def delete_lesson(request, pk, code):
     lesson = Lesson.objects.get(id=pk)
+    messages.success(request, 'Lesson was successfully deleted.')
     lesson.delete()
     return redirect('subjects:subject-detail', code=code)
 
@@ -121,7 +123,7 @@ def edit_marks(request, code: str):
         formset = MarkFormset(queryset=queryset, data=request.POST)
         if formset.is_valid():
             formset.save()
-            messages.add_message(request, messages.SUCCESS, 'Marks Successfully Saved')
+            messages.success(request, 'Marks were successfully saved.')
             return redirect(reverse('subjects:mark-list', kwargs={'code': code}))
     else:
         formset = MarkFormset(queryset=queryset)
@@ -134,12 +136,14 @@ def edit_marks(request, code: str):
     )
 
 
+@login_required
 def enroll_subjects(request):
     if request.method == 'POST':
         if (form := EnrollSubjectsForm(request.user, data=request.POST)).is_valid():
             subjects = form.cleaned_data['subjects']
             for subject in subjects:
                 request.user.enrolled_subjects.add(subject)
+                messages.success(request, 'Successfully enrolled in the chosen subjects.')
             return redirect('subjects:subject-list')
 
     else:
@@ -148,11 +152,13 @@ def enroll_subjects(request):
     return render(request, 'subjects/enroll.html', dict(form=form))
 
 
+@login_required
 def unenroll_subjects(request):
     if request.method == 'POST':
         if (form := UnenrollSubjectsForm(request.user, data=request.POST)).is_valid():
             subjects = form.cleaned_data['subjects']
             for subject in subjects:
+                messages.success(request, 'Successfully unenrolled from the chosen subjects.')
                 request.user.enrolled_subjects.remove(subject)
             return redirect('subjects:subject-list')
     else:

@@ -44,8 +44,8 @@ def test_subject_list_for_student_contains_links_for_subject_details(client, stu
 
 
 @pytest.mark.django_db
-def test_enroll_link_exists_in_subject_list_for_students(client, teacher):
-    client.force_login(teacher)
+def test_enroll_link_exists_in_subject_list_for_students(client, student):
+    client.force_login(student)
     response = client.get('/subjects/')
     assertContains(response, 'href="/subjects/enroll/"')
 
@@ -55,6 +55,20 @@ def test_unenroll_link_exists_in_subject_list_for_students(client, student):
     client.force_login(student)
     response = client.get('/subjects/')
     assertContains(response, 'href="/subjects/unenroll/"')
+
+
+@pytest.mark.django_db
+def test_enroll_link_does_not_exist_in_subject_list_for_teachers(client, teacher):
+    client.force_login(teacher)
+    response = client.get('/subjects/')
+    assertNotContains(response, 'href="/subjects/enroll/"')
+
+
+@pytest.mark.django_db
+def test_unenroll_link_does_not_exist_in_subject_list_for_teachers(client, teacher):
+    client.force_login(teacher)
+    response = client.get('/subjects/')
+    assertNotContains(response, 'href="/subjects/unenroll/"')
 
 
 @pytest.mark.django_db
@@ -220,11 +234,14 @@ def test_request_grade_certificate_is_forbidden_for_teachers(client, teacher):
 
 @pytest.mark.django_db
 def test_request_grade_certificate_works(client, student, settings, monkeypatch):
+    sent_mail = False
+
     def mock_deliver_certificate(base_url, test_student):
         deliver_certificate(base_url, test_student)
 
     def mock_send_email(*args, **kwargs):
-        assert True
+        nonlocal sent_mail
+        sent_mail = True
 
     try:
         monkeypatch.setattr(deliver_certificate, 'delay', mock_deliver_certificate)
@@ -238,8 +255,11 @@ def test_request_grade_certificate_works(client, student, settings, monkeypatch)
         clean_response = re.sub(r'<.*?>', '', response.content.decode())
         clean_response = re.sub(r' {2,}', ' ', clean_response)
         msg = f'You will get the grade certificate quite soon at {student.email}'
-        assert msg in clean_response
-        assert certificate.exists()
+        assert msg in clean_response, 'El mensaje de feedback no se ha dado correctamente'
+        assert (
+            certificate.exists()
+        ), 'El certificado de calificaciones no se ha generado en la ruta esperada'
+        assert sent_mail, 'No se ha invocado al método send() de EmailMessage.'
     except Exception as err:
         raise err
     finally:

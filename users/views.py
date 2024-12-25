@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
 from .forms import EditProfileForm
 
 
+@login_required
 def user_detail(request, username):
     target_user = User.objects.get(username=username)
     return render(
@@ -13,6 +15,7 @@ def user_detail(request, username):
     )
 
 
+@login_required
 def edit_profile(request):
     profile = request.user.profile
     if request.method == 'POST':
@@ -26,6 +29,7 @@ def edit_profile(request):
     return render(request, 'users/edit-profile.html', dict(profile=profile, form=form))
 
 
+@login_required
 def leave(request):
     user = request.user
     user.delete()
