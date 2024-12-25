@@ -17,6 +17,36 @@ from .models import Enrollment, Lesson, Subject
 from .tasks import deliver_certificate
 
 
+# cambiar el nombre y los textos
+def student_teacher_validation(func):
+    @login_required
+    def wrapper(*args, **kwargs):
+        user = args[0].user
+        subject = Subject.objects.get(code=kwargs['code'])
+        if not user.profile.is_student():
+            if user != subject.teacher:
+                return HttpResponseForbidden('No eres el profesor de esta asignatura')
+        elif not subject.enrollments.filter(student=user).exists():
+            return HttpResponseForbidden('No estas matriculado en esta asignatura')
+        return func(*args, **kwargs)
+
+    return wrapper
+def teacher_validation(func):
+    @login_required
+    def wrapper(*args, **kwargs):
+        user = args[0].user
+        subject = Subject.objects.get(code=kwargs['code'])
+        if not user.profile.is_student():
+            if user != subject.teacher:
+                return HttpResponseForbidden('No eres el profesor de esta asignatura')
+        else:
+            return HttpResponseForbidden('No tienes hac')
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+
 @login_required
 def subject_list(request):
     if request.user.profile.is_student():
@@ -33,7 +63,6 @@ def subject_list(request):
         dict(subjects=subjects),
     )
 
-
 @login_required
 def subject_detail(request, code):
     subject = Subject.objects.get(code=code)
@@ -47,7 +76,7 @@ def subject_detail(request, code):
     return render(request, 'subjects/subject-lessons.html', dict(lessons=lessons, subject=subject))
 
 
-@login_required
+@student_teacher_validation
 def lesson_detail(request, pk, code):
     lesson = Lesson.objects.get(pk=pk)
     return render(request, 'subjects/lesson-detail.html', dict(lesson=lesson))
@@ -66,14 +95,14 @@ def add_lesson(request, code):
             lesson.subject = subject
             lesson.save()
             messages.success(request, 'Lesson was successfully added.')
-            return redirect('subjects:lesson-detail', code=subject.code, pk=lesson.pk)
+            return redirect('subjects:subject-detail', code=subject.code)
         messages.error(request, messages.ERROR, 'Something went wrong')
     else:
         form = AddLessonForm()
     return render(request, 'subjects/add-lesson.html', {'form': form, 'subject': subject})
 
 
-@login_required
+@teacher_validation
 def edit_lesson(request, code, pk):
     subject = Subject.objects.get(code=code)
     lesson = Lesson.objects.get(id=pk, subject=subject)
@@ -85,14 +114,14 @@ def edit_lesson(request, code, pk):
             lesson = form.save(commit=False)
             lesson.save()
             messages.success(request, 'Changes were successfully saved.')
-            return redirect('subjects:lesson-detail', code=subject.code, pk=lesson.pk)
+            
 
     return render(
         request, 'subjects/edit-lesson.html', {'form': form, 'lesson': lesson, 'subject': subject}
     )
 
 
-@login_required
+@teacher_validation
 def delete_lesson(request, pk, code):
     lesson = Lesson.objects.get(id=pk)
     messages.success(request, 'Lesson was successfully deleted.')
@@ -112,7 +141,7 @@ def mark_list(request, code):
     )
 
 
-@login_required
+@teacher_validation
 def edit_marks(request, code: str):
     subject = Subject.objects.get(code=code)
 

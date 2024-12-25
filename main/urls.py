@@ -29,7 +29,7 @@ urlpatterns = [
     path('subjects/', include('subjects.urls')),
     path('user/', include('users.urls', namespace='users')),
     path('users/<str:username>/', users.views.user_detail, name='user-detail'),
-    path('homepage/', include('shared.urls', namespace='homepage')),
+    path('', include('shared.urls', namespace='shared')),
     path('login/', accounts.views.user_login, name='login'),
     path('logout/', accounts.views.user_logout, name='logout'),
     path('signup/', accounts.views.user_signup, name='signup'),

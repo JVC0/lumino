@@ -23,6 +23,11 @@
                 {% endfor %}
             </tbody>
         </table>
+        
+    </div>
+    <div>
+    {% comment %} arregla esto porfa {% endcomment %}
+    <a href="{% url 'subjects:edit-marks' subject.code %}" class="add-lesson-btn btn mb-3">Edit Marks</a>
     </div>
 </div>
 

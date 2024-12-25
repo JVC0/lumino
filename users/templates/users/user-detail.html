@@ -29,8 +29,9 @@
                             Request Certificate
                         </a>
                     {% endif %}
-                    
-                    {% modal "Leave" url="users:leave" title="Destroy account" body="This action will delete your account and all data. Are you sure?" action="Continue" btn_classes="btn btn-outline-danger btn-sm" btn_icon="bi bi-exclamation-triangle-fill" %}
+                    {% if user.profile.is_student %}
+                        {% modal "Leave" url="users:leave" title="Destroy account" body="This action will delete your account and all data. Are you sure?" action="Continue" btn_classes="btn btn-outline-danger btn-sm" btn_icon="bi bi-exclamation-triangle-fill" %}
+                    {% endif %}
                 </div>
             {% endif %}
         </div>
