@@ -32,7 +32,7 @@ class Lesson(models.Model):
 
 class Enrollment(models.Model):
     student = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='enrollments', on_delete=models.CASCADE
+        settings.AUTH_USER_MODEL, related_name='enrolled', on_delete=models.CASCADE
     )
     subject = models.ForeignKey(
         'subjects.Subject', related_name='enrollments', on_delete=models.CASCADE

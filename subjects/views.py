@@ -31,6 +31,8 @@ def student_teacher_validation(func):
         return func(*args, **kwargs)
 
     return wrapper
+
+
 def teacher_validation(func):
     @login_required
     def wrapper(*args, **kwargs):
@@ -44,7 +46,6 @@ def teacher_validation(func):
         return func(*args, **kwargs)
 
     return wrapper
-
 
 
 @login_required
@@ -62,6 +63,7 @@ def subject_list(request):
         'subjects/subject-list.html',
         dict(subjects=subjects),
     )
+
 
 @login_required
 def subject_detail(request, code):
@@ -114,7 +116,6 @@ def edit_lesson(request, code, pk):
             lesson = form.save(commit=False)
             lesson.save()
             messages.success(request, 'Changes were successfully saved.')
-            
 
     return render(
         request, 'subjects/edit-lesson.html', {'form': form, 'lesson': lesson, 'subject': subject}
@@ -197,9 +198,13 @@ def unenroll_subjects(request):
 
 @login_required
 def request_certificate(request):
-    if request.user.enrollments.filter(mark__isnull=False).exists():
+    if request.user.enrolled.filter(mark__isnull=False).exists():
         base_url = request.build_absolute_uri('/')
         deliver_certificate.delay(base_url, request.user)
+        messages.success(
+            request, f'You will get the grade certificate quite soon at {request.user.email}'
+        )
         return render(request, 'subjects/certificate/certificate.html')
     else:
+        messages.error(request, 'You do not have permission to access this resource.')
         return HttpResponseForbidden()
