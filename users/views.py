@@ -1,23 +1,30 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
 from django.http import HttpResponseForbidden
+from django.shortcuts import redirect, render
+
 from .forms import EditProfileForm
+
 
 def teacher_cant_leave(func):
     @login_required
     def wrapper(*args, **kwargs):
         user = args[0].user
         if not user.profile.is_student():
-                return HttpResponseForbidden('EL profesor no se puede ir')
+            return HttpResponseForbidden('EL profesor no se puede ir')
         return func(*args, **kwargs)
 
     return wrapper
 
+
 @login_required
 def user_detail(request, username):
     target_user = User.objects.get(username=username)
+    
+
+    for enrollment in request.user.enrolled.all():
+        print(enrollment.mark)
     return render(
         request,
         'users/user-detail.html',
@@ -40,7 +47,7 @@ def edit_profile(request):
     return render(request, 'users/edit-profile.html', dict(profile=profile, form=form))
 
 
-@teacher_cant_leave 
+@teacher_cant_leave
 def leave(request):
     user = request.user
     messages.success(request, 'Good bye! Hope to see you soon.')

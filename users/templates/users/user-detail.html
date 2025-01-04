@@ -7,6 +7,7 @@
     <div class="row justify-content-center">
         <div class="col-md-6 text-center">
             <!-- Avatar -->
+            
             <div class="profile-avatar mb-3">
                 {% thumbnail target_user.profile.avatar "200x200" crop="center" format="PNG" as avatar %}
                     <img src="{{ avatar.url }}" alt="Avatar" class="rounded-circle shadow">
@@ -14,10 +15,12 @@
             </div>
 
             <!-- User Info -->
-            <h2 class="profile-name">{{ target_user }}</h2>
+            <h2 class="profile-name">{{ target_user.first_name }} {{target_user.last_name}}</h2>
+            
+            <h4 class="profile-email">{{ target_user.email}}</h4>
             <p class="badge bg-primary">{{ target_user.profile.get_role_display }}</p>
             <p class="profile-bio text-muted">{{ target_user.profile.bio|default:"No bio available." }}</p>
-
+            
             <!-- Buttons (if current user is viewing their own profile) -->
             {% if user == target_user %}
                 <div class="profile-actions mt-4">
@@ -25,13 +28,12 @@
                         Edit Profile
                     </a>
                     {% if target_user.profile.is_student %}
-                        <a href="{% url 'subjects:request-certificate' %}" class="btn btn-outline-success btn-sm">
-                            Request Certificate
-                        </a>
+                    {% modal "Leave" url="users:leave" title="Destroy account" body="This action will delete your account and all data. Are you sure?" action="Continue" btn_classes="btn btn-outline-danger btn-sm" btn_icon="bi bi-exclamation-triangle-fill" %}
+                    
                     {% endif %}
-                    {% if user.profile.is_student %}
-                        {% modal "Leave" url="users:leave" title="Destroy account" body="This action will delete your account and all data. Are you sure?" action="Continue" btn_classes="btn btn-outline-danger btn-sm" btn_icon="bi bi-exclamation-triangle-fill" %}
-                    {% endif %}
+                    
+                        
+                    
                 </div>
             {% endif %}
         </div>

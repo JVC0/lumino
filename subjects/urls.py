@@ -4,7 +4,6 @@ from django.urls import path, re_path
 from . import views
 
 app_name = 'subjects'
-# re-path [A-Z]{3} (?P<code>[A-Z]{3}) (?P<pk>\d+)
 urlpatterns = [
     path('', views.subject_list, name='subject-list'),
     path('enroll/', views.enroll_subjects, name='enroll-subjects'),

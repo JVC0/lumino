@@ -57,12 +57,8 @@ def subject_list(request):
     for subject in subjects:
         subject.lesson_count = subject.lessons.count()
         subject.student_count = subject.students.count()
-
-    return render(
-        request,
-        'subjects/subject-list.html',
-        dict(subjects=subjects),
-    )
+    marks = not (request.user.enrolled.filter(mark__isnull=True).exists())
+    return render(request, 'subjects/subject-list.html', dict(subjects=subjects, marks=marks))
 
 
 @login_required
