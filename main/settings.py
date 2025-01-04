@@ -139,7 +139,7 @@ STATICFILES_DIRS = [BASE_DIR / 'node_modules']
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 MEDIA_ROOT = BASE_DIR / 'media'
-
+MEDIA_URL = '/media/'
 RQ_QUEUES = {
     'default': {
         'HOST': 'localhost',
