@@ -23,7 +23,7 @@ def wave_validation(func):
     @login_required
     def wrapper(*args, **kwargs):
         user = args[0].user
-        wave = ddwdwdobjects.get(pk=kwargs['wave_id'])
+        wave =objects.get(pk=kwargs['wave_id'])
         if user != wave.user:
             return HttpResponseForbidden('No puedes modificar el wave de otro usuario.')
         return func(*args, **kwargs)

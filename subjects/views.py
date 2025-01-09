@@ -47,7 +47,7 @@ def teacher_validation(func):
 
     return wrapper
 
-
+###########################################################
 @login_required
 def subject_list(request):
     if request.user.profile.is_student():

@@ -116,6 +116,65 @@ reset-db: && create-su
 rq: check-venv redis
     ./manage.py rqworker
 
+# Generate fake data and populate Django database
+[private]
+@gen-data *args: check-venv clean-data
+    #!/usr/bin/env bash
+    ./manage.py gen_data {{ args }}
+
+# Dump fixtures
+[private]
+dump-data: gen-data
+    #!/usr/bin/env bash
+    mkdir -p fixtures
+    ./manage.py dumpdata --format json --indent 2 auth -o fixtures/auth.json
+    ./manage.py dumpdata --format json --indent 2 users -o fixtures/users.json
+    ./manage.py dumpdata --format json --indent 2 subjects -o fixtures/subjects.json
+
+# Clean data
+[private]
+clean-data:
+    #!/usr/bin/env bash
+    ./manage.py shell -c '
+    from django.contrib.auth import get_user_model
+    from django.core.management.base import BaseCommand
+    from subjects.models import Subject
+
+    Subject.objects.all().delete()
+    User = get_user_model()
+    User.objects.exclude(is_superuser=True).delete()
+    ' 
+
+# Show current users on database → role = [STUDENT|TEACHER]
+show-users role:
+    #!/usr/bin/env bash
+    ./manage.py shell -c '
+    from django.contrib.auth import get_user_model
+    from django.core.management.base import BaseCommand
+    from users.models import Profile
+
+    User = get_user_model()
+    for user in User.objects.filter(profile__role=Profile.Role.{{ role }}):
+        print(user.username)
+    ' 
+
+# Load fixtures into database
+load-data: check-venv clean-data
+    #!/usr/bin/env bash
+    ./manage.py loaddata fixtures/auth.json
+    ./manage.py loaddata fixtures/users.json
+    ./manage.py loaddata fixtures/subjects.json
+    echo ---------------------------
+    echo ↓ Users with password: 1234
+    echo ---------------------------
+    echo STUDENTS
+    echo ========
+    just show-users STUDENT
+    echo
+    echo TEACHERS
+    echo ========
+    just show-users TEACHER
+
 # ==============================================================================
 # MISC RECIPES
 # ==============================================================================
@@ -143,6 +202,7 @@ redis:
             pgrep -x Redis &> /dev/null || (open /Applications/Redis.app && sleep 2)
         fi
     fi
+
 kill-runservers:
     #!/usr/bin/env bash
     for pid in $(ps aux | grep '[Pp]ython.*manage.py runserver' | awk '{ print $2 }')
