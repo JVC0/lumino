@@ -127,7 +127,7 @@ rq: check-venv redis
 dump-data: gen-data
     #!/usr/bin/env bash
     mkdir -p fixtures
-    ./manage.py dumpdata --format json --indent 2 auth -o fixtures/auth.json
+    ./manage.py dumpdata --format json --indent 2 auth.User -o fixtures/auth.json
     ./manage.py dumpdata --format json --indent 2 users -o fixtures/users.json
     ./manage.py dumpdata --format json --indent 2 subjects -o fixtures/subjects.json
 
@@ -137,7 +137,6 @@ clean-data:
     #!/usr/bin/env bash
     ./manage.py shell -c '
     from django.contrib.auth import get_user_model
-    from django.core.management.base import BaseCommand
     from subjects.models import Subject
 
     Subject.objects.all().delete()
@@ -150,7 +149,6 @@ show-users role:
     #!/usr/bin/env bash
     ./manage.py shell -c '
     from django.contrib.auth import get_user_model
-    from django.core.management.base import BaseCommand
     from users.models import Profile
 
     User = get_user_model()
@@ -202,7 +200,6 @@ redis:
             pgrep -x Redis &> /dev/null || (open /Applications/Redis.app && sleep 2)
         fi
     fi
-
 kill-runservers:
     #!/usr/bin/env bash
     for pid in $(ps aux | grep '[Pp]ython.*manage.py runserver' | awk '{ print $2 }')

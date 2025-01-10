@@ -9,11 +9,9 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         subjects = Subject.objects.all()
         for subject in subjects:
-            print(subject)
-            enrollment = Enrollment.objects.filter(subject=subject, mark__isnull=False)
-            print(enrollment)
-
-            # if None in subject.enrollments.mark:
-            #     continue
-            # average = sum(subject.enrollments.mark) / len(subject.enrollments.mark)
-            # print(f'{subject.code}: {average}')
+            enrollment = Enrollment.objects.filter(subject=subject, mark__isnull=False).values_list(
+                'mark', flat=True
+            )
+            if len(enrollment) > 0:
+                mean = round(sum(enrollment) / len(enrollment), 2)
+                print(f'{subject.code}: {mean:.2f}')

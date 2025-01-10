@@ -192,10 +192,8 @@ def request_certificate(request):
         if not request.user.enrolled.filter(mark__isnull=True).exists():
             base_url = request.build_absolute_uri('/')
             deliver_certificate.delay(base_url, request.user)
-            messages.success(
-                request, f'You will get the grade certificate quite soon at {request.user.email}'
-            )
-            return render(request, 'subjects/certificate/certificate.html')
+
+            return render(request, 'subjects/certificate/message.html')
         else:
             messages.error(request, 'You do not have permission to access this resource.')
             return HttpResponseForbidden()
