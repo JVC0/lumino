@@ -1,4 +1,4 @@
-{% load user_extras %}
+{% load subject_extras %}
 
 <p>Dear {{ student.username }},</p>
 <p>As you requested, attached is your certificate containing the grade you received in the LUMINO course.</p>

@@ -47,6 +47,7 @@ def teacher_validation(func):
 
     return wrapper
 
+
 ###########################################################
 @login_required
 def subject_list(request):
@@ -187,13 +188,16 @@ def unenroll_subjects(request):
 
 @login_required
 def request_certificate(request):
-    if request.user.enrolled.filter(mark__isnull=False).exists():
-        base_url = request.build_absolute_uri('/')
-        deliver_certificate.delay(base_url, request.user)
-        messages.success(
-            request, f'You will get the grade certificate quite soon at {request.user.email}'
-        )
-        return render(request, 'subjects/certificate/certificate.html')
+    if request.user.profile.is_student():
+        if not request.user.enrolled.filter(mark__isnull=True).exists():
+            base_url = request.build_absolute_uri('/')
+            deliver_certificate.delay(base_url, request.user)
+            messages.success(
+                request, f'You will get the grade certificate quite soon at {request.user.email}'
+            )
+            return render(request, 'subjects/certificate/certificate.html')
+        else:
+            messages.error(request, 'You do not have permission to access this resource.')
+            return HttpResponseForbidden()
     else:
-        messages.error(request, 'You do not have permission to access this resource.')
         return HttpResponseForbidden()
