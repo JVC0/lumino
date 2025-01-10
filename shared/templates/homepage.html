@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block content %}
 <div class="container text-center my-5">
     <!-- Título de bienvenida con animación -->
     <h1 class="display-3 mb-4 welcome-message">
-        Welcome to Lumino!
+        {% translate "Welcome to Lumino!" %}
     </h1>
 
     <p class="lead welcome-text">
-        Empowering learning and teaching, one lesson at a time.
+        {% translate "Empowering learning and teaching, one lesson at a time." %}
     </p>
 
     <!-- GIF del mago -->
@@ -18,8 +18,8 @@
     <br>
 
     <!-- Botones de Login y Sign up -->
-    <a href="{% url 'login' %}" class="btn btn-outline-primary me-2 custom-btn">Login</a>
-    <a href="{% url 'signup' %}" class="btn btn-primary custom-btn">Sign up</a>
+    <a href="{% url 'login' %}" class="btn btn-outline-primary me-2 custom-btn">{% translate "Login" %}</a>
+    <a href="{% url 'signup' %}" class="btn btn-primary custom-btn">{% translate  "Sign up" %}</a>
 
 </div>
 {% endblock %}

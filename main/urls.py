@@ -21,6 +21,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 import accounts.views
+import shared.views
 import users.views
 
 urlpatterns = [
@@ -33,6 +34,7 @@ urlpatterns = [
     path('login/', accounts.views.user_login, name='login'),
     path('logout/', accounts.views.user_logout, name='logout'),
     path('signup/', accounts.views.user_signup, name='signup'),
+    path('setlang/<str:langcode>/', shared.views.setlang, name='setlang'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

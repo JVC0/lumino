@@ -287,9 +287,9 @@ def test_request_grade_certificate_works(client, student, settings, monkeypatch)
         clean_response = re.sub(r' {2,}', ' ', clean_response)
         msg = f'You will get the grade certificate quite soon at {student.email}'
         assert msg in clean_response, 'El mensaje de feedback no se ha dado correctamente'
-        assert (
-            certificate.exists()
-        ), 'El certificado de calificaciones no se ha generado en la ruta esperada'
+        assert certificate.exists(), (
+            'El certificado de calificaciones no se ha generado en la ruta esperada'
+        )
         assert sent_mail, 'No se ha invocado al método send() de EmailMessage.'
     except Exception as err:
         raise err
@@ -695,7 +695,7 @@ def test_management_command_to_show_subject_stats(capsys):
             avg_mark = 0
         test_data.append({'subject': subject, 'avg_mark': avg_mark})
     command.handle()
-    excected_output = '\n'.join(f'{d['subject'].code}: {d['avg_mark']:.2f}' for d in test_data)
+    excected_output = '\n'.join(f'{d["subject"].code}: {d["avg_mark"]:.2f}' for d in test_data)
     captured = capsys.readouterr()
     assert captured.out.strip() == excected_output
 
@@ -708,10 +708,9 @@ def test_management_command_to_show_subject_stats(capsys):
 @pytest.mark.django_db
 def test_i18n_in_subject_list(client, teacher):
     client.force_login(teacher)
-    client.get('/subjects/')
-    response = client.get('/setlang/en/', follow=True)
+    response = client.get('/setlang/en/?next=/subjects/', follow=True)
     assertContains(response, 'My subjects')
-    response = client.get('/setlang/es/', follow=True)
+    response = client.get('/setlang/es/?next=/subjects/', follow=True)
     assertContains(response, 'Mis módulos')
 
 

@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% block content %}
 <div class="container subject-template">
-    <h3>My Courses</h3>
+    <h3> {% translate "My subjects" %}</h3>
     <div class="row">
-        {% comment %} certificado {% endcomment %}
+        {% comment %} certificate {% endcomment %}
         {% if marks %}
                     <a href="{% url 'subjects:request-certificate' %}" class="btn btn-outline-success btn-sm">
-                            Request Certificate
+                        Request Certificate
                         </a>
                     {% endif %}
         {% for subject in subjects %}

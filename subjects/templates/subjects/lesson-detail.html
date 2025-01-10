@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block content %}
 <div class="container lesson-detail-template mt-5">
     <div class="card shadow-lg border-0 rounded-3">
@@ -16,10 +16,10 @@
             {% if not request.user.profile.is_student %}
                 <div class="lesson-actions text-center">
                     <a href="{% url 'subjects:edit-lesson' lesson.subject.code lesson.pk %}" class="btn btn-outline-warning btn-sm mr-2">
-                        <i class="bi bi-pencil"></i> Edit Lesson
+                        <i class="bi bi-pencil"></i> "Edit Lesson" 
                     </a>
                     <a href="{% url 'subjects:delete-lesson' lesson.subject.code lesson.pk %}" class="btn btn-outline-danger btn-sm">
-                        <i class="bi bi-trash"></i> Delete Lesson
+                        <i class="bi bi-trash"></i> Delete Lesson"
                     </a>
                 </div>
             {% endif %}
