@@ -61,15 +61,9 @@ def subject_list(request):
     return render(request, 'subjects/subject-list.html', dict(subjects=subjects, marks=marks))
 
 
-@login_required
+@student_teacher_validation
 def subject_detail(request, code):
     subject = Subject.objects.get(code=code)
-    if request.user.profile.is_student():
-        if not subject.students.filter(pk=request.user.pk).exists():
-            return HttpResponseForbidden('You are not enrolled in this subject')
-    else:
-        if not subject.teacher == request.user:
-            return HttpResponseForbidden('You are not the teacher of this subject')
     lessons = Lesson.objects.filter(subject=subject)
     return render(request, 'subjects/subject-lessons.html', dict(lessons=lessons, subject=subject))
 
@@ -78,7 +72,6 @@ def subject_detail(request, code):
 def lesson_detail(request, pk, code):
     lesson = Lesson.objects.get(pk=pk)
     return render(request, 'subjects/lesson-detail.html', dict(lesson=lesson))
-    # esto seguro es más complejo
 
 
 @login_required
