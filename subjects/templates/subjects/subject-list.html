@@ -8,7 +8,9 @@
         {% if marks and request.user.profile.is_student %}
         <div class="row">
             <div class="col-md-6">
-                <a href="{% url 'subjects:request-certificate' %}" class="btn btn-outline-secondary request-btn">Request Certificate</a>
+                <a href="{% url 'subjects:request-certificate' %}" class="btn btn-outline-secondary request-btn">
+                    {% translate "Request Certificate" %}
+                </a>
             </div>
           </div>
         {% endif %}
@@ -21,7 +23,8 @@
                                 <h5 class="card-title">{{ subject.name }}</h5>
                                 <h6 class="card-subtitle">{{ subject.code }}</h6>
                                 <h6 class="card-teacher mt-2">
-                                    Teacher: 
+                                    {% translate "Teacher" %}
+                                    
                                     <a href="{% url 'user-detail' subject.teacher %}" class="text-decoration-none">
                                         {{ subject.teacher }}
                                     </a>
@@ -36,25 +39,31 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <p class="card-text">
                                 <i class="bi bi-journal-bookmark-fill"></i> 
-                                <span>{{ subject.lesson_count }} Lessons</span>
+                                <span>{{ subject.lesson_count }} 
+                                    {% translate "Lessons" %}
+                                    </span>
                             </p>
                             <p class="card-text">
                                 <i class="bi bi-people-fill"></i> 
-                                <span>{{ subject.student_count }} Students</span>
+                                <span>{{ subject.student_count }} 
+                                   {% translate "Students" %}</span>
                             </p>
                         </div>
 
                         <div class="mt-auto">
                             <a href="{% url 'subjects:subject-detail' subject.code %}" 
                                class="btn btn-outline-primary">
-                                <i class="bi bi-box-arrow-right me-2"></i> Read More
+                                <i class="bi bi-box-arrow-right me-2"></i> 
+                                {% translate "Read More" %}
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         {% empty %}
-            <p class="text-muted">You are not enrolled in any subjects.</p>
+            <p class="text-muted">
+                {% translate "You are not enrolled in any subjects." %}
+                </p>
         {% endfor %}
     </div>
 </div>

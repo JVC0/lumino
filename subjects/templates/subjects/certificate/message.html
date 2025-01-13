@@ -2,6 +2,6 @@
 
 {% block content %}
   <div class="certificate-message">
-    <h1 class="message-title">You will get your grade certificate at <span class="text-detail">{{ user.email }}</span> soon!</h1>
+    <h1 class="message-title">{% translate "You will get your grade certificate at" %} <span class="text-detail">{{ user.email }}</span> {% translate "soon!" %}</h1>
   </div>
 {% endblock content %}

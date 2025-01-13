@@ -2,12 +2,12 @@
 {% load i18n %}
 {% block content %}
 <div class="container lesson-list-template">
-    <h3>Lessons for {{ subject.name }}</h3>
+    <h3> {% translate "Lessons for" %} {{ subject.name }}</h3>
 
     {% if not request.user.profile.is_student %}
-        <a href="{% url 'subjects:add-lesson' subject.code %}" class="add-lesson-btn btn mb-3">Add Lesson</a>
-        <a href="{% url 'subjects:mark-list' subject.code %}" class="add-lesson-btn btn mb-3">Mark list</a>
-        <a href="{% url 'subjects:edit-marks' subject.code %}" class="add-lesson-btn btn mb-3">Edit Marks</a>
+        <a href="{% url 'subjects:add-lesson' subject.code %}" class="add-lesson-btn btn mb-3">{% translate "Add Lesson" %}</a>
+        <a href="{% url 'subjects:mark-list' subject.code %}" class="add-lesson-btn btn mb-3"> {% translate "Mark List" %}</a>
+        <a href="{% url 'subjects:edit-marks' subject.code %}" class="add-lesson-btn btn mb-3">{% translate "Edit Marks" %}</a>
     {% endif %}
 
     <ul class="lesson-list">
@@ -27,10 +27,11 @@
                     {% endif %}
                 </div>
                 <p class="lesson-content">{{ lesson.content | truncatewords:20 }}</p>
-                <a href="{% url 'subjects:lesson-detail' lesson.subject.code lesson.pk %}" class="btn btn-secondary btn-sm">See Details</a>
+                <a href="{% url 'subjects:lesson-detail' lesson.subject.code lesson.pk %}" class="btn btn-secondary btn-sm">{% translate "See Details" %}</a>
             </li>
         {% empty %}
-            <p class="text-muted">No lessons available for this subject.</p>
+            <p class="text-muted">
+                {% translate "No lessons available for this subject." %}</p>
         {% endfor %}
     </ul>
 </div>
