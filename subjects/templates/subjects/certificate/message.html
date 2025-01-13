@@ -1,5 +1,7 @@
 {% extends "base.html" %}
-{% block content %}
 
-  <h1>You will get the grade certificate quite soon at {{user.email}}</h1>
+{% block content %}
+  <div class="certificate-message">
+    <h1 class="message-title">You will get your grade certificate at <span class="text-detail">{{ user.email }}</span> soon!</h1>
+  </div>
 {% endblock content %}

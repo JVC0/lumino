@@ -114,7 +114,16 @@ body {
   color: var(--card-color3);
   background-color: transparent;
 }
-
+.btn-outline-secondary {
+  border-color: var(--card-color1);
+  color: var(--card-color1);
+  background-color: transparent;
+}
+.btn-outline-secondary:hover {
+  background-color: var(--card-color1);
+  color: white;
+  border-color: var(--card-color1);
+}
 .btn-outline-primary:hover {
   background-color: var(--card-color3);
   color: white;
@@ -132,7 +141,11 @@ body {
   border-color: var(--card-color4);
 }
 
+.request-btn {
+  margin-bottom: 20px;
+}
 /*SUBJECT LIST*/
+
 /* Limitar los estilos al template de Subjects */
 .subject-template .container {
   margin-top: 20px;
@@ -468,4 +481,33 @@ body {
 }
 .table th {
   background-color: var(--card-color5);
+}
+
+/*Message*/
+.certificate-message {
+  background-color: var(--nav-color1);
+  border: 1px solid var(--card-color1);
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 800px;
+  margin: 50px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.message-title {
+  color: var(--card-color5);
+  font-weight: 200;
+  font-size: 24px;
+  text-align: center;
+  margin: 0;
+}
+
+.certificate-message h1 {
+  margin: 0;
+  font-weight: bold;
+  color: var(--card-color1);
+}
+
+.text-detail {
+  color: var(--card-color4);
 }
