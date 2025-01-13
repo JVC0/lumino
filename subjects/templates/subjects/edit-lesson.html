@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-
+{% load i18n %}
 {% block content %}
 <div class="row justify-content-center mt-5">
   <div class="col-md-6">
@@ -16,7 +16,7 @@
       </div>
       <div class="card-footer text-center">
         <a href="{% url 'subjects:subject-detail' subject.code %}" class="btn btn-outline-secondary">
-          Cancel
+          {% translate "Cancel" %}
         </a>
       </div>
     </div>

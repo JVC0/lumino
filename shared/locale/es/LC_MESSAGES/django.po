@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-10 20:20+0000\n"
+"POT-Creation-Date: 2025-01-13 18:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,18 +18,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
+
 #: shared/templates/homepage.html:8
-msgid "Welcome to Lumino!"
-msgstr ""
+msgid "Welcome to Lumino!" 
+msgstr "¡Bienvenido a Lumino!"
 
-#: shared/templates/homepage.html:12
-msgid "Empowering learning and teaching, one lesson at a time."
-msgstr ""
+#: shared/templates/homepage.html:12 
+msgid "Empowering learning and teaching, one lesson at a time." 
+msgstr "Empoderando el aprendizaje y la enseñanza, una lección a la vez."
 
-#: shared/templates/homepage.html:21
-msgid "Login"
-msgstr ""
+#: shared/templates/homepage.html:21 
+msgid "Login" 
+msgstr "Iniciar sesión"
 
-#: shared/templates/homepage.html:22
-msgid "Sign up"
-msgstr ""
+#: shared/templates/homepage.html:22 
+msgid "Sign up" 
+msgstr "Regístrate"
+
+#: shared/templates/navbar.html:13 
+msgid "Home" 
+msgstr "Inicio"
+
+#: shared/templates/navbar.html:19 
+msgid "Enroll" 
+msgstr "Inscribirse"
+
+#: shared/templates/navbar.html:25 
+msgid "Unenroll" 
+msgstr "Desinscribirse"
+
+#: shared/templates/navbar.html:31 
+msgid "Dark Mode" 
+msgstr "Modo oscuro"
+
+#: shared/templates/navbar.html:43 
+msgid "Hello" 
+msgstr "Hola"
+
+#: shared/templates/navbar.html:62 
+msgid "Profile" 
+msgstr "Perfil"
+
+#: shared/templates/navbar.html:63 
+msgid "Settings" 
+msgstr "Configuraciones"
+
+#: shared/templates/navbar.html:67 
+msgid "Logout" 
+msgstr "Cerrar sesión"

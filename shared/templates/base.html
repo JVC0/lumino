@@ -5,44 +5,54 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>LUMINO</title>
-    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'bootstrap-icons/font/bootstrap-icons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'shared/css/styles.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Delius&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap-icons/font/bootstrap-icons.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'shared/css/styles.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Delicious+Handrawn&family=Delius&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
-  <body> 
+  <body>
     {% include 'navbar.html' %}
-    
-    <div class="container m-5">
-      {% include "include/messages.html" %}
-      {% block content %}
-      {% endblock %}
-    </div> 
-  </body>
-  
-  <script type="text/javascript" src="{% static 'bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-  
-<script>
-  $(document).ready(() => {
-    console.log("Document is ready");
 
-    $('.message').each(function() {
+    <div class="container m-5">
+      {% include "include/messages.html" %} {% block content %} {% endblock %}
+    </div>
+  </body>
+
+  <script
+    type="text/javascript"
+    src="{% static 'bootstrap/dist/js/bootstrap.bundle.min.js' %}"
+  ></script>
+
+  <script>
+    $(document).ready(() => {
+      
+
+      $(".alert").each(function () {
         const $this = $(this);
         console.log("Setting timeout for message:", $this.text());
         setTimeout(() => {
-            console.log("Removing message:", $this.text());
-            $this.remove();
-        }, 2000);
-    });
+          console.log("Removing message:", $this.text());
+          $this.remove();
+        }, 10000);
+      });
 
-    $('.messages').on('click', '.btn-close', function() {
-        console.log("Close button clicked");
-        $(this).closest('.message').remove();
+      $(".messages").on("click", ".btn-close", function () {
+        
+        $(this).closest(".alert").remove();
+      });
     });
-});
   </script>
 </html>

@@ -3,7 +3,10 @@
 {% block content %}
 <div class="container lesson-list-template">
     <h3> {% translate "Lessons for" %} {{ subject.name }}</h3>
-
+    {% if subject_mark %}
+        <h4>{% translate "Your mark for this subject: " %}{{ subject_mark }}</h4>
+    {% endif %}
+    
     {% if not request.user.profile.is_student %}
         <a href="{% url 'subjects:add-lesson' subject.code %}" class="add-lesson-btn btn mb-3">{% translate "Add Lesson" %}</a>
         <a href="{% url 'subjects:mark-list' subject.code %}" class="add-lesson-btn btn mb-3"> {% translate "Mark List" %}</a>

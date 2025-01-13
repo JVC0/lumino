@@ -13,7 +13,10 @@
 <body>
     <h1>Certificate of Completion</h1>
     <p>This is to certify that <strong>{{ student }}</strong></p>
-    <p>has successfully completed the course with a grade.</p>
+    <p>has successfully completed the course</p>
+    {% for subject_code ,grade  in subject_grade  %}
+        Your grade for {{ subject_code }} is {{ grade }}.
+    {% endfor %}
     <p>Date: {{ today }}</p>
     <div class="signature">LUMINO Team</div>
 </body>

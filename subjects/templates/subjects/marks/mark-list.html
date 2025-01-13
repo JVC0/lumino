@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% load subject_extras %}
-
+{% load i18n %}
 {% block content %}
 <div class="container mt-5">
-    <h2 class="text-center mb-4 h-custom">Student Marks</h2>
+    <h2 class="text-center mb-4 h-custom">{% translate "Student Marks" %}</h2>
     <div class="table-responsive">
         <table class="table table-striped table-hover table-bordered" style="max-width: 80%; margin: auto;">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col">Student</th>
-                    <th scope="col">Mark</th>
+                    <th scope="col">{% translate "Student" %}</th>
+                    <th scope="col">{% translate "Mark" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,8 +26,7 @@
         
     </div>
     <div>
-    {% comment %} arregla esto porfa {% endcomment %}
-    <a href="{% url 'subjects:edit-marks' subject.code %}" class="add-lesson-btn btn mb-3">Edit Marks</a>
+    <a href="{% url 'subjects:edit-marks' subject.code %}" class="add-lesson-btn btn mb-3">{% translate "Edit Marks" %}</a>
     </div>
 </div>
 

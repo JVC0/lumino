@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-10 20:20+0000\n"
+"POT-Creation-Date: 2025-01-13 18:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,119 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
 "1 : 2;\n"
+
+#: subjects/templates/subjects/add-lesson.html:9
+msgid "Create New Lesson"
+msgstr "Crear Nueva Lección"
+
+#: subjects/templates/subjects/add-lesson.html:19
+#: subjects/templates/subjects/edit-lesson.html:19
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: subjects/templates/subjects/certificate/message.html:5
+#, fuzzy
+#| msgid "You will get your grade certificate at"
+msgid "You will get the grade certificate quite soon at "
+msgstr "Recibirás tu certificado de calificación en"
+
+#: subjects/templates/subjects/edit-lesson.html:9
+#: subjects/templates/subjects/lesson-detail.html:19
+msgid "Edit Lesson"
+msgstr "Editar Lección"
+
+#: subjects/templates/subjects/enroll.html:10
+msgid "Enroll Now"
+msgstr "Inscribirse Ahora"
+
+#: subjects/templates/subjects/lesson-detail.html:10
+#, fuzzy
+#| msgid "My subjects"
+msgid "Subject:"
+msgstr "Asignatura:"
+
+#: subjects/templates/subjects/lesson-detail.html:22
+msgid "Delete Lesson"
+msgstr "Eliminar Lección"
+
+#: subjects/templates/subjects/lesson-detail.html:29
+msgid "Back to Lessons"
+msgstr "Volver a Lecciones"
+
+#: subjects/templates/subjects/marks/mark-list.html:6
+msgid "Student Marks"
+msgstr "Calificaciones de Estudiantes"
+
+#: subjects/templates/subjects/marks/mark-list.html:11
+msgid "Student"
+msgstr "Estudiante"
+
+#: subjects/templates/subjects/marks/mark-list.html:12
+msgid "Mark"
+msgstr "Calificación"
+
+#: subjects/templates/subjects/marks/mark-list.html:29
+#: subjects/templates/subjects/subject-lessons.html:11
+msgid "Edit Marks"
+msgstr "Editar Calificaciones"
+
+#: subjects/templates/subjects/subject-lessons.html:5
+msgid "Lessons for"
+msgstr "Lecciones para"
+
+#: subjects/templates/subjects/subject-lessons.html:6
+#, fuzzy
+#| msgid "No lessons available for this subject."
+msgid "Your mark for this subject: "
+msgstr "Tu nota para esta asignatura es: "
+
+#: subjects/templates/subjects/subject-lessons.html:9
+msgid "Add Lesson"
+msgstr "Agregar Lección"
+
+#: subjects/templates/subjects/subject-lessons.html:10
+msgid "Mark List"
+msgstr "Lista de Calificaciones"
+
+#: subjects/templates/subjects/subject-lessons.html:31
+msgid "See Details"
+msgstr "Ver Detalles"
+
+#: subjects/templates/subjects/subject-lessons.html:35
+msgid "No lessons available for this subject."
+msgstr "No hay lecciones disponibles para esta asignatura."
+
 #: subjects/templates/subjects/subject-list.html:5
 msgid "My subjects"
 msgstr "Mis módulos"
+
+#: subjects/templates/subjects/subject-list.html:13
+msgid "Request Certificate"
+msgstr "Solicitar Certificado"
+
+#: subjects/templates/subjects/subject-list.html:27
+msgid "Teacher"
+msgstr "Profesor"
+
+#: subjects/templates/subjects/subject-list.html:44
+msgid "Lessons"
+msgstr "Lecciones"
+
+#: subjects/templates/subjects/subject-list.html:50
+msgid "Students"
+msgstr "Estudiantes"
+
+#: subjects/templates/subjects/subject-list.html:58
+msgid "Read More"
+msgstr "Leer Más"
+
+#: subjects/templates/subjects/subject-list.html:66
+msgid "You are not enrolled in any subjects."
+msgstr "No estás inscrito en ninguna asignatura."
+
+#: subjects/templates/subjects/unenroll.html:10
+msgid "Unenroll Now"
+msgstr "Desinscribirse Ahora"
+
+#~ msgid "soon!"
+#~ msgstr "pronto!"

@@ -177,7 +177,9 @@ def test_subject_mark_appears_when_set(client, student):
     subject = enrollment.subject
     client.force_login(student)
     response = client.get(f'/subjects/{subject.code}/')
-    assertContains(response, enrollment.mark)
+    response_text = response.content.decode()
+    msg = rf'Your mark for this subject:.*?{enrollment.mark}'
+    assert re.search(msg, response_text, re.S | re.M)
 
 
 @pytest.mark.django_db

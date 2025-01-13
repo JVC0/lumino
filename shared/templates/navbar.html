@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load i18n %}
     <!-- Sidebar -->
     <div class="sidebar bg-main">
         <div class="p-3">
@@ -10,25 +10,25 @@
             <ul class="nav flex-column">
                 <li class="nav-item link-custom">
                     <a href="{% url 'subjects:subject-list' %}" class="nav-link link-custom">
-                        <i class="bi bi-house-door me-2"></i> Home
+                        <i class="bi bi-house-door me-2"></i> {% translate "Home"%}
                     </a>
                 </li>
                 {% if request.user.profile.is_student %}
                 <li class="nav-item ">
                         <a class="nav-link link-custom " href="{% url 'subjects:enroll-subjects' %}">
-                            <i class="bi bi-people me-2"></i> Enroll</a>
+                            <i class="bi bi-people me-2"></i> {% translate "Enroll"%}</a>
                 
                 </li>
                     
                 <li>
                     <a class="nav-link link-custom" href="{% url 'subjects:unenroll-subjects' %}">
-                        <i class="bi bi-door-closed "></i> Unenroll</a>
+                        <i class="bi bi-door-closed "></i> {% translate "Unenroll"%}</a>
                 </li>
                 {% endif %}
                 </ul>
-                    <div class="sidebar-footer" onclick="Darkmode()" >
-                        <a  href="#"  class="link-custom">
-                        <i  class="bi bi-moon me-2"></i> Dark Mode
+                    <div class="sidebar-footer"  >
+                        <a class="link-custom dark-link" onclick="Darkmode()">
+                        <i  class="bi bi-moon me-2"></i> {% translate "Dark Mode"%}
                         </a>
                     </div>
             
@@ -40,7 +40,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-main shadow-sm">
             <div class="container-fluid">
                 <h5>
-                    <i class="bi bi-lightbulb me-2"></i> Hello {{ request.user.username }}!
+                    <i class="bi bi-lightbulb me-2"></i> {% translate "Hello"%} {{ request.user.username }}!
                 </h5>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,12 +59,12 @@
                                 <img src="{{ request.user.profile.avatar.url }}" alt="Avatar" class="rounded-circle me-1" width="30" height="30">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                    <li><a class="dropdown-item" href="{% url 'user-detail' user %}">Profile</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'users:edit-profile' %}">Settings</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'user-detail' user %}">{% translate "Profile"%}</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'users:edit-profile' %}">{% translate "Settings"%}</a></li>
                                     <li><a class="dropdown-item" href="{% url 'setlang' 'en' %}?next={{ request.path }}">🇺🇸</a></li>
                                     <li><a class="dropdown-item" href="{% url 'setlang' 'es' %}?next={{ request.path }}">🇪🇸</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'logout' %}">{% translate "Logout" %}</a></li>
                                 </ul>
                             </div>
                             
@@ -73,6 +73,7 @@
                 </div>
             </div>
         </nav>
+        <script type="module" src="{% static "shared/js/navbar.js" %}"></script>
         <script>
             function Darkmode() {
                 var element = document.body;

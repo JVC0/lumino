@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 {% load shared_extras %}
-
+{% load i18n %}
 
 {% block content %}
 <div class="container mt-5">
@@ -26,7 +26,7 @@
             {% if user == target_user %}
                 <div class="profile-actions mt-4">
                     <a href="{% url 'users:edit-profile' %}" class="btn btn-outline-primary btn-sm">
-                        Edit Profile
+                        {% translate "Edit Profile"%}
                     </a>
                     {% if target_user.profile.is_student %}
                     {% modal "Leave" url="users:leave" title="Destroy account" body="This action will delete your account and all data. Are you sure?" action="Continue" btn_classes="btn btn-outline-danger btn-sm" btn_icon="bi bi-exclamation-triangle-fill" %}

@@ -66,20 +66,36 @@ def subject_list(request):
 def subject_detail(request, code):
     subject = Subject.objects.get(code=code)
     lessons = Lesson.objects.filter(subject=subject)
-    return render(request, 'subjects/subject-lessons.html', dict(lessons=lessons, subject=subject))
+    subject_mark = (
+        Enrollment.objects.filter(student=request.user, subject=subject)
+        .values_list('mark', flat=True)
+        .last()
+    )
+    return render(
+        request,
+        'subjects/subject-lessons.html',
+        dict(lessons=lessons, subject=subject, subject_mark=subject_mark),
+    )
 
 
 @student_teacher_validation
 def lesson_detail(request, pk, code):
+    subjects = Subject.objects.all()
+    subject_marks = {}
+
+    for subject in subjects:
+        enrollment = Enrollment.objects.filter(subject=subject, student=request.user).first()
+        subject_marks[subject.code] = enrollment
     lesson = Lesson.objects.get(pk=pk)
-    return render(request, 'subjects/lesson-detail.html', dict(lesson=lesson))
+    return render(
+        request, 'subjects/lesson-detail.html', dict(lesson=lesson, subject_marks=subject_marks)
+    )
 
 
-@login_required
+@teacher_validation
 def add_lesson(request, code):
     subject = Subject.objects.get(code=code)
-    if request.user.profile.is_student() or subject.teacher != request.user:
-        return HttpResponseForbidden()
+
     if request.method == 'POST':
         form = AddLessonForm(request.POST)
         if form.is_valid():

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block content %}
   <div class="certificate-message">
-    <h1 class="message-title">{% translate "You will get your grade certificate at" %} <span class="text-detail">{{ user.email }}</span> {% translate "soon!" %}</h1>
+    <h1 class="message-title">{% translate "You will get the grade certificate quite soon at " %}<span class="text-detail">{{ user.email }}</span></h1>
   </div>
 {% endblock content %}

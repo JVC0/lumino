@@ -219,6 +219,9 @@ body {
   color: white;
 }
 
+.dark-link {
+  cursor: pointer;
+}
 /*ENROLL*/ /* Card Styles for Subjects */
 .subject-card {
   background-color: var(--card-background);
