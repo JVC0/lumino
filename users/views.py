@@ -14,15 +14,12 @@ def teacher_cant_leave(func):
         if not user.profile.is_student():
             return HttpResponseForbidden('EL profesor no se puede ir')
         return func(*args, **kwargs)
-
     return wrapper
 
 
 @login_required
 def user_detail(request, username):
     target_user = User.objects.get(username=username)
-    
-
     for enrollment in request.user.enrolled.all():
         print(enrollment.mark)
     return render(
@@ -37,8 +34,6 @@ def edit_profile(request):
     profile = request.user.profile
     if request.method == 'POST':
         if (form := EditProfileForm(request.POST, request.FILES, instance=profile)).is_valid():
-            profile = form.save(commit=False)
-
             profile.save()
             messages.success(request, 'User profile has been successfully saved.')
             return redirect('user-detail', request.user)

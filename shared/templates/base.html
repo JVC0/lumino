@@ -30,7 +30,6 @@
   $(document).ready(() => {
     console.log("Document is ready");
 
-    // Set a timeout to remove messages after 2 seconds
     $('.message').each(function() {
         const $this = $(this);
         console.log("Setting timeout for message:", $this.text());
@@ -40,7 +39,6 @@
         }, 2000);
     });
 
-    // Use event delegation to handle button clicks
     $('.messages').on('click', '.btn-close', function() {
         console.log("Close button clicked");
         $(this).closest('.message').remove();

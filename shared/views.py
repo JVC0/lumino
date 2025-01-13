@@ -3,7 +3,6 @@ from django.shortcuts import redirect, render
 from django.utils import translation
 
 
-# Create your views here.
 def index(request):
     if request.user.is_authenticated:
         return redirect('subjects:subject-list')
