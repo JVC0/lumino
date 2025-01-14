@@ -20,8 +20,6 @@ def teacher_cant_leave(func):
 @login_required
 def user_detail(request, username):
     target_user = User.objects.get(username=username)
-    for enrollment in request.user.enrolled.all():
-        print(enrollment.mark)
     return render(
         request,
         'users/user-detail.html',

@@ -8,7 +8,7 @@ pip-cmd := shell('if [ -x "$(command -v uv)" ]; then echo "uv pip"; else echo "p
 # ==============================================================================
 
 # Launch development server
-runserver: check-venv
+runserver: kill-runservers
     ./manage.py runserver
 
 # Launch Django interactive shell
@@ -200,3 +200,10 @@ redis:
             pgrep -x Redis &> /dev/null || (open /Applications/Redis.app && sleep 2)
         fi
     fi
+kill-runservers:
+    #!/usr/bin/env bash
+    for pid in $(ps aux | grep '[Pp]ython.*manage.py runserver' | awk '{ print $2 }')
+    do
+        kill -9 $pid
+    done
+    

@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from subjects.models import Enrollment, Subject
-
+from subjects.models import Subject
 
 
 class Command(BaseCommand):
@@ -10,7 +9,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         subjects = Subject.objects.all()
         for subject in subjects:
-            enrollment = Enrollment.objects.filter(subject=subject, mark__isnull=False).values_list(
+            enrollment = subject.enrollments.filter(mark__isnull=False).values_list(
                 'mark', flat=True
             )
             if len(enrollment) > 0:

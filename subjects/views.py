@@ -71,6 +71,10 @@ def subject_detail(request, code):
         .values_list('mark', flat=True)
         .last()
     )
+    # if request.user.profile.is_student():
+    # # subject_mark = request.user.enrolled.get(subject=subject).mark
+    # else:
+    #     subject_mark = None
     return render(
         request,
         'subjects/subject-lessons.html',
@@ -80,15 +84,9 @@ def subject_detail(request, code):
 
 @student_teacher_validation
 def lesson_detail(request, pk, code):
-    subjects = Subject.objects.all()
-    subject_marks = {}
-
-    for subject in subjects:
-        enrollment = Enrollment.objects.filter(subject=subject, student=request.user).first()
-        subject_marks[subject.code] = enrollment
     lesson = Lesson.objects.get(pk=pk)
     return render(
-        request, 'subjects/lesson-detail.html', dict(lesson=lesson, subject_marks=subject_marks)
+        request, 'subjects/lesson-detail.html', dict(lesson=lesson)
     )
 
 
@@ -121,7 +119,6 @@ def edit_lesson(request, code, pk):
             lesson = form.save(commit=False)
             lesson.save()
             messages.success(request, 'Changes were successfully saved.')
-
     return render(
         request, 'subjects/edit-lesson.html', {'form': form, 'lesson': lesson, 'subject': subject}
     )
