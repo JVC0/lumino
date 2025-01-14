@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-13 18:52+0000\n"
+"POT-Creation-Date: 2025-01-14 16:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,13 +29,11 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: subjects/templates/subjects/certificate/message.html:5
-#, fuzzy
-#| msgid "You will get your grade certificate at"
 msgid "You will get the grade certificate quite soon at "
 msgstr "Recibirás tu certificado de calificación en"
 
 #: subjects/templates/subjects/edit-lesson.html:9
-#: subjects/templates/subjects/lesson-detail.html:19
+#: subjects/templates/subjects/lesson-detail.html:21
 msgid "Edit Lesson"
 msgstr "Editar Lección"
 
@@ -43,17 +41,15 @@ msgstr "Editar Lección"
 msgid "Enroll Now"
 msgstr "Inscribirse Ahora"
 
-#: subjects/templates/subjects/lesson-detail.html:10
-#, fuzzy
-#| msgid "My subjects"
+#: subjects/templates/subjects/lesson-detail.html:12
 msgid "Subject:"
 msgstr "Asignatura:"
 
-#: subjects/templates/subjects/lesson-detail.html:22
+#: subjects/templates/subjects/lesson-detail.html:24
 msgid "Delete Lesson"
 msgstr "Eliminar Lección"
 
-#: subjects/templates/subjects/lesson-detail.html:29
+#: subjects/templates/subjects/lesson-detail.html:31
 msgid "Back to Lessons"
 msgstr "Volver a Lecciones"
 
@@ -70,7 +66,7 @@ msgid "Mark"
 msgstr "Calificación"
 
 #: subjects/templates/subjects/marks/mark-list.html:29
-#: subjects/templates/subjects/subject-lessons.html:11
+#: subjects/templates/subjects/subject-lessons.html:13
 msgid "Edit Marks"
 msgstr "Editar Calificaciones"
 
@@ -78,25 +74,23 @@ msgstr "Editar Calificaciones"
 msgid "Lessons for"
 msgstr "Lecciones para"
 
-#: subjects/templates/subjects/subject-lessons.html:6
-#, fuzzy
-#| msgid "No lessons available for this subject."
+#: subjects/templates/subjects/subject-lessons.html:7
 msgid "Your mark for this subject: "
 msgstr "Tu nota para esta asignatura es: "
 
-#: subjects/templates/subjects/subject-lessons.html:9
+#: subjects/templates/subjects/subject-lessons.html:11
 msgid "Add Lesson"
 msgstr "Agregar Lección"
 
-#: subjects/templates/subjects/subject-lessons.html:10
+#: subjects/templates/subjects/subject-lessons.html:12
 msgid "Mark List"
 msgstr "Lista de Calificaciones"
 
-#: subjects/templates/subjects/subject-lessons.html:31
+#: subjects/templates/subjects/subject-lessons.html:33
 msgid "See Details"
 msgstr "Ver Detalles"
 
-#: subjects/templates/subjects/subject-lessons.html:35
+#: subjects/templates/subjects/subject-lessons.html:37
 msgid "No lessons available for this subject."
 msgstr "No hay lecciones disponibles para esta asignatura."
 
@@ -131,6 +125,3 @@ msgstr "No estás inscrito en ninguna asignatura."
 #: subjects/templates/subjects/unenroll.html:10
 msgid "Unenroll Now"
 msgstr "Desinscribirse Ahora"
-
-#~ msgid "soon!"
-#~ msgstr "pronto!"
