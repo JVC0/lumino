@@ -95,7 +95,6 @@ def lesson_detail(request, pk, code):
 @teacher_validation
 def add_lesson(request, code):
     subject = Subject.objects.get(code=code)
-
     if request.method == 'POST':
         form = AddLessonForm(request.POST)
         if form.is_valid():
@@ -136,13 +135,10 @@ def delete_lesson(request, pk, code):
     return redirect('subjects:subject-detail', code=code)
 
 
-@login_required
+@teacher_validation
 def mark_list(request, code):
     subject = Subject.objects.get(code=code)
-    if request.user.profile.is_student() or subject.teacher != request.user:
-        return HttpResponseForbidden()
     enrollments = subject.enrollments.all()
-    # related_name = 'enrollments' de subject
     return render(
         request, 'subjects/marks/mark-list.html', dict(subject=subject, enrollments=enrollments)
     )
@@ -151,10 +147,8 @@ def mark_list(request, code):
 @teacher_validation
 def edit_marks(request, code: str):
     subject = Subject.objects.get(code=code)
-
     MarkFormset = modelformset_factory(Enrollment, form=EditMarkForm, extra=0)
     queryset = subject.enrollments.all()
-
     if request.method == 'POST':
         formset = MarkFormset(queryset=queryset, data=request.POST)
         if formset.is_valid():
@@ -163,7 +157,6 @@ def edit_marks(request, code: str):
             return redirect(reverse('subjects:mark-list', kwargs={'code': code}))
     else:
         formset = MarkFormset(queryset=queryset)
-
     helper = EditMarkFormSetHelper()
     return render(
         request,
@@ -181,10 +174,8 @@ def enroll_subjects(request):
                 request.user.enrolled_subjects.add(subject)
                 messages.success(request, 'Successfully enrolled in the chosen subjects.')
             return redirect('subjects:subject-list')
-
     else:
         form = EnrollSubjectsForm(request.user)
-
     return render(request, 'subjects/enroll.html', dict(form=form))
 
 

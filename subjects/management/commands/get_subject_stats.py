@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand
 from subjects.models import Enrollment, Subject
 
 
+
 class Command(BaseCommand):
     help = 'show the average of all subjects'
 
