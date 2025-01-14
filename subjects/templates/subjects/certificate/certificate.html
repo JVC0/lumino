@@ -4,19 +4,41 @@
     <meta charset="UTF-8">
     <title>Grade Certificate</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
-        h1 { color: #4CAF50; }
-        p { font-size: 18px; }
-        .signature { margin-top: 50px; font-style: italic; }
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            margin: 50px; 
+            background-color: #f0f0f0; 
+            padding: 20px; 
+            border: 1px solid #ddd; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 { 
+            color: #4CAF50; 
+            font-size: 36px; 
+            margin-bottom: 20px; 
+        }
+        p { 
+            font-size: 18px; 
+            margin-bottom: 10px; 
+        }
+        .signature { 
+            margin-top: 50px; 
+            font-style: italic; 
+            font-size: 20px; 
+            color: #666; 
+        }
     </style>
 </head>
 <body>
     <h1>Certificate of Completion</h1>
     <p>This is to certify that <strong>{{ student }}</strong></p>
     <p>has successfully completed the course</p>
-    {% for subject in student.enrolled.all %}
-        Your grade for {{ subject.subject }} is {{ subject.mark }}.<br>
-    {% endfor %}
+    <div style="margin-top: 20px; margin-bottom: 20px;">
+        {% for subject in student.enrolled.all %}
+            <p>Subject: {{ subject.subject }} | Grade: {{ subject.mark }}</p>
+        {% endfor %}
+    </div>
     <p>Date: {{ today }}</p>
     <div class="signature">LUMINO Team</div>
 </body>

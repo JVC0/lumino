@@ -2,9 +2,9 @@
 {% load i18n %}
 {% block content %}
 <div class="container lesson-list-template">
-    <h3> {% translate "Lessons for" %} {{ subject.name }}</h3>
+    <h3> {% translate "Lessons for" %} <span>{{ subject.name }}</span></h3>
     {% if subject_mark %}
-        <h4>{% translate "Your mark for this subject: " %}{{ subject_mark }}</h4>
+        <h4 class="mark-detail">{% translate "Your mark for this subject: " %}<span>{{ subject_mark }}</span></h4>
     {% endif %}
     
     {% if not request.user.profile.is_student %}

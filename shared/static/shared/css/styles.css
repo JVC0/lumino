@@ -287,8 +287,10 @@ body {
 
 .lesson-list-template h3 {
   color: var(--card-color1);
-  text-align: center;
   margin-bottom: 20px;
+}
+.lesson-list-template h3 span {
+  font-weight: bold;
 }
 
 .lesson-list {
@@ -425,6 +427,21 @@ body {
 .sidebar {
   width: 280px;
   height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+}
+.sidebar-footer {
+  position: sticky;
+  bottom: 0;
+}
+.mark-detail {
+  color: var(--card-color2);
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+.mark-detail span {
+  font-weight: bold;
 }
 .main-content {
   flex-grow: 1;
