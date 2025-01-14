@@ -51,18 +51,24 @@
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     </ul>
+                    <div class="lang-switch">
+                        <a class="{% if request.LANGUAGE_CODE == 'en' %}active{% endif %}" href="{% url 'setlang' 'en' %}?next={{ request.path }}">EN</a>
+                        <a class="{% if request.LANGUAGE_CODE == 'es' %}active{% endif %}" href="{% url 'setlang' 'es' %}?next={{ request.path }}">ES</a>
+                      </div>
+                      
 
                     <div class="d-flex align-items-center">
                         {% if user.is_authenticated %}
                             <div class="dropdown">
+                                
                                 <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="{{ request.user.profile.avatar.url }}" alt="Avatar" class="rounded-circle me-1" width="30" height="30">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                     <li><a class="dropdown-item" href="{% url 'user-detail' user %}">{% translate "Profile"%}</a></li>
                                     <li><a class="dropdown-item" href="{% url 'users:edit-profile' %}">{% translate "Settings"%}</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'setlang' 'en' %}?next={{ request.path }}">🇺🇸</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'setlang' 'es' %}?next={{ request.path }}">🇪🇸</a></li>
+                                    <a class="" href="{% url 'setlang' 'en' %}?next={{ request.path }}">EN</a>
+                                    <a class="" href="{% url 'setlang' 'es' %}?next={{ request.path }}">ES</a>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="{% url 'logout' %}">{% translate "Logout" %}</a></li>
                                 </ul>
@@ -75,6 +81,12 @@
         </nav>
         <script type="module" src="{% static "shared/js/navbar.js" %}"></script>
         <script>
+            document.getElementById('language-toggle').addEventListener('change', function() {
+                const lang = this.checked ? 'es' : 'en'; // Get the selected language
+                window.location.href = `{% url 'setlang' '${lang}' %}?next={{ request.path }}`; // Redirect to the selected language
+              });
+
+              
             function Darkmode() {
                 var element = document.body;
                 console.log("Dark mode toggle clicked");

@@ -31,6 +31,38 @@ body {
   background-color: var(--body-color);
 }
 
+/*SWITCH*/
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.lang-switch a {
+  display: inline-block;
+  padding: 5px 15px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  font-size: 12px;
+  transition: background-color 0.3s, color 0.3s;
+  flex: 1;
+}
+
+.lang-switch a:hover {
+  background-color: #e0e0e0;
+}
+
+.lang-switch a.active {
+  background-color: var(--card-color1);
+  color: white;
+}
+
 .link-custom {
   color: var(--nav-color2);
 }
