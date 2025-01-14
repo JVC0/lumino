@@ -6,20 +6,14 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django_rq import job
 from weasyprint import HTML
-from subjects.models import Enrollment, Subject
+
 
 @job
 def deliver_certificate(base_url, student):
-    subjects = Subject.objects.all()
-    subject_marks={}
-    for subject in subjects:
-        enrollment = Enrollment.objects.filter(subject=subject, mark__isnull=False, student=student).first()
-        subject_marks[subject.code] = enrollment.mark
-                
     rendered = render_to_string(
         'subjects/certificate/certificate.html',
         {
-            'subject_marks':subject_marks,
+            
             'student': student,
             'today': datetime.date.today(),
         },
