@@ -67,8 +67,6 @@
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                     <li><a class="dropdown-item" href="{% url 'user-detail' user %}">{% translate "Profile"%}</a></li>
                                     <li><a class="dropdown-item" href="{% url 'users:edit-profile' %}">{% translate "Settings"%}</a></li>
-                                    <a class="" href="{% url 'setlang' 'en' %}?next={{ request.path }}">EN</a>
-                                    <a class="" href="{% url 'setlang' 'es' %}?next={{ request.path }}">ES</a>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="{% url 'logout' %}">{% translate "Logout" %}</a></li>
                                 </ul>
@@ -81,12 +79,6 @@
         </nav>
         <script type="module" src="{% static "shared/js/navbar.js" %}"></script>
         <script>
-            document.getElementById('language-toggle').addEventListener('change', function() {
-                const lang = this.checked ? 'es' : 'en'; // Get the selected language
-                window.location.href = `{% url 'setlang' '${lang}' %}?next={{ request.path }}`; // Redirect to the selected language
-              });
-
-              
             function Darkmode() {
                 var element = document.body;
                 console.log("Dark mode toggle clicked");

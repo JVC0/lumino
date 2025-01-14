@@ -17,32 +17,51 @@ from .models import Enrollment, Lesson, Subject
 from .tasks import deliver_certificate
 
 
-# cambiar el nombre y los textos
-def student_teacher_validation(func):
+######################--------DECORATORS--------#####################################
+def student_teacher_validator(func):
     @login_required
     def wrapper(*args, **kwargs):
         user = args[0].user
         subject = Subject.objects.get(code=kwargs['code'])
         if not user.profile.is_student():
             if user != subject.teacher:
-                return HttpResponseForbidden('No eres el profesor de esta asignatura')
+                return HttpResponseForbidden('Only the teacher has access to this page.')
         elif not subject.enrollments.filter(student=user).exists():
-            return HttpResponseForbidden('No estas matriculado en esta asignatura')
+            return HttpResponseForbidden('You are not enrolled in this subject.')
         return func(*args, **kwargs)
 
     return wrapper
 
 
-def teacher_validation(func):
+def teacher_validator(func):
     @login_required
     def wrapper(*args, **kwargs):
         user = args[0].user
         subject = Subject.objects.get(code=kwargs['code'])
         if not user.profile.is_student():
             if user != subject.teacher:
-                return HttpResponseForbidden('No eres el profesor de esta asignatura')
+                return HttpResponseForbidden(
+                    'Only the teacher of this subject has access to this page.'
+                )
         else:
-            return HttpResponseForbidden('No tienes hac')
+            return HttpResponseForbidden('You are not enrolled in this subject.')
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+def student_has_all_marks(func):
+    @login_required
+    def wrapper(*args, **kwargs):
+        user = args[0].user
+        if user.profile.is_student():
+            if not user.enrolled.filter(mark__isnull=True).exists():
+                pass
+            else:
+                messages.error(args[0], 'You do not have permission to access this resource.')
+                return HttpResponseForbidden()
+        else:
+            return HttpResponseForbidden()
         return func(*args, **kwargs)
 
     return wrapper
@@ -62,19 +81,14 @@ def subject_list(request):
     return render(request, 'subjects/subject-list.html', dict(subjects=subjects, marks=marks))
 
 
-@student_teacher_validation
+@student_teacher_validator
 def subject_detail(request, code):
     subject = Subject.objects.get(code=code)
     lessons = Lesson.objects.filter(subject=subject)
-    subject_mark = (
-        Enrollment.objects.filter(student=request.user, subject=subject)
-        .values_list('mark', flat=True)
-        .last()
-    )
-    # if request.user.profile.is_student():
-    # # subject_mark = request.user.enrolled.get(subject=subject).mark
-    # else:
-    #     subject_mark = None
+    if request.user.profile.is_student():
+        subject_mark = request.user.enrolled.get(subject=subject).mark
+    else:
+        subject_mark = None
     return render(
         request,
         'subjects/subject-lessons.html',
@@ -82,15 +96,13 @@ def subject_detail(request, code):
     )
 
 
-@student_teacher_validation
+@student_teacher_validator
 def lesson_detail(request, pk, code):
     lesson = Lesson.objects.get(pk=pk)
-    return render(
-        request, 'subjects/lesson-detail.html', dict(lesson=lesson)
-    )
+    return render(request, 'subjects/lesson-detail.html', dict(lesson=lesson))
 
 
-@teacher_validation
+@teacher_validator
 def add_lesson(request, code):
     subject = Subject.objects.get(code=code)
     if request.method == 'POST':
@@ -107,7 +119,7 @@ def add_lesson(request, code):
     return render(request, 'subjects/add-lesson.html', {'form': form, 'subject': subject})
 
 
-@teacher_validation
+@teacher_validator
 def edit_lesson(request, code, pk):
     subject = Subject.objects.get(code=code)
     lesson = Lesson.objects.get(id=pk, subject=subject)
@@ -116,7 +128,6 @@ def edit_lesson(request, code, pk):
     else:
         form = EditLessonForm(request.POST, instance=lesson)
         if form.is_valid():
-            lesson = form.save(commit=False)
             lesson.save()
             messages.success(request, 'Changes were successfully saved.')
     return render(
@@ -124,7 +135,7 @@ def edit_lesson(request, code, pk):
     )
 
 
-@teacher_validation
+@teacher_validator
 def delete_lesson(request, pk, code):
     lesson = Lesson.objects.get(id=pk)
     messages.success(request, 'Lesson was successfully deleted.')
@@ -132,7 +143,7 @@ def delete_lesson(request, pk, code):
     return redirect('subjects:subject-detail', code=code)
 
 
-@teacher_validation
+@teacher_validator
 def mark_list(request, code):
     subject = Subject.objects.get(code=code)
     enrollments = subject.enrollments.all()
@@ -141,7 +152,7 @@ def mark_list(request, code):
     )
 
 
-@teacher_validation
+@teacher_validator
 def edit_marks(request, code: str):
     subject = Subject.objects.get(code=code)
     MarkFormset = modelformset_factory(Enrollment, form=EditMarkForm, extra=0)
@@ -190,16 +201,8 @@ def unenroll_subjects(request):
     return render(request, 'subjects/unenroll.html', dict(form=form))
 
 
-@login_required
+@student_has_all_marks
 def request_certificate(request):
-    if request.user.profile.is_student():
-        if not request.user.enrolled.filter(mark__isnull=True).exists():
-            base_url = request.build_absolute_uri('/')
-            deliver_certificate.delay(base_url, request.user)
-
-            return render(request, 'subjects/certificate/message.html')
-        else:
-            messages.error(request, 'You do not have permission to access this resource.')
-            return HttpResponseForbidden()
-    else:
-        return HttpResponseForbidden()
+    base_url = request.build_absolute_uri('/')
+    deliver_certificate.delay(base_url, request.user)
+    return render(request, 'subjects/certificate/message.html')

@@ -3,30 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Grade Certificate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body { 
             font-family: Arial, sans-serif; 
             text-align: center; 
             margin: 50px; 
-            background-color: #f0f0f0; 
-            padding: 20px; 
+            padding: 50px; 
             border: 1px solid #ddd; 
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1 { 
-            color: #4CAF50; 
+            color: #0a7b79; 
             font-size: 36px; 
             margin-bottom: 20px; 
+            font-weight: bold;
         }
         p { 
             font-size: 18px; 
             margin-bottom: 10px; 
+            line-height: 1.5;
         }
         .signature { 
             margin-top: 50px; 
             font-style: italic; 
             font-size: 20px; 
             color: #666; 
+            text-align: right;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .bold-text{
+            font-weight: bold;
+            color: #054f49;
         }
     </style>
 </head>
@@ -35,11 +54,24 @@
     <p>This is to certify that <strong>{{ student }}</strong></p>
     <p>has successfully completed the course</p>
     <div style="margin-top: 20px; margin-bottom: 20px;">
+        <table>
+            <tr>
+                <th>Subject</th>
+                <th>Grade</th>
+            </tr>
         {% for subject in student.enrolled.all %}
-            <p>Subject: {{ subject.subject }} | Grade: {{ subject.mark }}</p>
+            <tr>
+                <td>{{ subject.subject }}</td>
+                <td class="{% if   subject.mark >= 5 %}text-success  {% else %} text-danger {% endif %}">{{ subject.mark }}</td>
+            </tr>
         {% endfor %}
+    </table> 
     </div>
-    <p>Date: {{ today }}</p>
+    <p class="bold-text">Date: {{ today }}</p>
     <div class="signature">LUMINO Team</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
+
+        
+
